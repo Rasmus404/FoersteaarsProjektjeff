@@ -1,0 +1,5 @@
+ListMediator metode updateIgangvaerendeKoebs()
+IgangværendeSkaerm ObservableList fra ListMediator.getIgangvlrendeKoebs()
+Faktura boolean værdi ift (status godkendt?) class database logic(set status fra model pris)
+
+FilteredList - add "statusColumn", fjern tlf samt by fra choiceBox
