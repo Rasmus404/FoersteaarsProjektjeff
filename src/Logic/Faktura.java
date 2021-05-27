@@ -54,7 +54,7 @@ public class Faktura {
             case C:
                 this.rki = 0.03;
                 break;
-            case D:
+            case "D":
                 break;
         }
     }
