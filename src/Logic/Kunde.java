@@ -1,7 +1,6 @@
 package Logic;
 import Datalayer.Datalayer;
-import Presentation.OpretKoebSkaerm;
-
+import Datalayer.CreditRator;
 import java.sql.SQLException;
 
 //Victor
@@ -16,6 +15,7 @@ public class Kunde {
     String by = "";
     String leveringsadresse = "";
     boolean leveringOenskes = false;
+    String kreditVaerdighed;
 
 
     public int getKunde_id() {
@@ -66,7 +66,6 @@ public class Kunde {
         this.by = by;
     }
 
-
     public String getLeveringsadresse() {
        /* if (leveringsadresse.isEmpty() && leveringOenskes)
             return adresse;
@@ -78,9 +77,20 @@ public class Kunde {
         this.leveringsadresse = leveringsadresse;
     }
 
-
     public void setLeveringOenskes() {
         this.leveringOenskes = true;
+    }
+
+    public String getKreditVaerdighed() {
+        return kreditVaerdighed;
+    }
+
+    public void setKreditVaerdighed(String kreditVaerdighed) {
+        this.kreditVaerdighed = kreditVaerdighed;
+    }
+
+    public void checkMyRKI(String cpr) {
+        this.kreditVaerdighed = CreditRator.i().rate(cpr).name();
     }
 
     public void addToDatabase() throws SQLException {

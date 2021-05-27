@@ -9,6 +9,6 @@ public class Main  {
     }
 
     public static void main(String[] args) throws SQLException {
-        Application.launch(LoginSkaerm.class, args);
+        Application.launch(StartApp.class, args);
     }
 }

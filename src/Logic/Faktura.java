@@ -117,6 +117,7 @@ public class Faktura {
 
     }
 
+
     //Getters and Setters
     public double getRentesats() {
         return rentesats;
