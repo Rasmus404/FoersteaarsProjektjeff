@@ -7,7 +7,7 @@ public class LoginChecker {
     public static boolean loginChecker(String username, String password){
 
         if ( "Admin".equals(username) && "6969".equals(password)){
-            isAdmin = true;
+            LoginChecker.setAdmin(true);
             LoginChecker.username = username;
             return true;
         }
@@ -28,7 +28,7 @@ public class LoginChecker {
         return username;
     }*/
 
-    public boolean setAdmin(boolean admin) {
+    private static boolean setAdmin(boolean admin) {
         if (isAdmin == true) {
             admin = true;
         }
@@ -36,7 +36,7 @@ public class LoginChecker {
 
         return admin;
     }
-    public boolean getAdminStatus() {
+    public static boolean getAdminStatus() {
         if (isAdmin == true){
             return true;
         }

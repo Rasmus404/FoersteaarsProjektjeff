@@ -1,5 +1,21 @@
-ListMediator metode updateIgangvaerendeKoebs()
-IgangværendeSkaerm ObservableList fra ListMediator.getIgangvlrendeKoebs()
-Faktura boolean værdi ift (status godkendt?) class database logic(set status fra model pris)
+    LanneaftaleSkaerm
+ny asynkron tråd
 
-FilteredList - add "statusColumn", fjern tlf samt by fra choiceBox
+    OpretKoebSkaerm
+
+
+    Faktura
+(l.90) TodaysRate skal sættes i Constructor istedet, for at sætte loadtime ned og kaldes i CprService(Måske Rename)
+
+
+
+
+    IgangværendeSkærm
+igangværendeSkærm linje 51-57 lave en klasse "dialogBox" med en ja/nej knap som lambdaer til en metode
+linje 51-57 outliner hvad det ca skal ske (dialogboxklassen har en metode "godkend" og "idk(ikke godkend?)")
+som tager "selectedFaktura" som parameter som holder den faktura som er trykket på. hvis der trykkes godkend
+skal fakturarens boolean værdi "fakturaGodkendt" sættes til true
+
+
+Mangel:
+Admin brug. igangværende (snakke om funktunaliteten som admin)

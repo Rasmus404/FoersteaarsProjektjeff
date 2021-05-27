@@ -181,7 +181,7 @@ public class FakturaGodkendelse extends GridPane {
                 } catch (SQLException e1) {
                 }
             }
-                StartSkaerm.instance().pushNode(new KundeSkaerm());
+                StartSkaermController.i().clearAndStartNew(new KundeSkaerm());
             }
         );
     }

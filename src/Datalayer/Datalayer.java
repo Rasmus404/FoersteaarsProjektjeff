@@ -20,7 +20,7 @@ public class Datalayer {
         openConnection(databaseName);
     }
 
-    private static boolean loadJdbcDriver() {
+     static boolean loadJdbcDriver() {
         try {
             //System.out.println("Loading JDBC driver...");
 
@@ -35,7 +35,7 @@ public class Datalayer {
         }
     }
 
-    private static boolean openConnection(String databaseName) {
+     static boolean openConnection(String databaseName) {
         String connectionString =
                 "jdbc:sqlserver://localhost:1433;" +
                         "instanceName=SQLEXPRESS;" +

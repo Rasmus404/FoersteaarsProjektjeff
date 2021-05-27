@@ -1,6 +1,8 @@
 package Presentation;
 
 import Logic.*;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
@@ -9,10 +11,7 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -72,10 +71,21 @@ public class LaaneaftaleSkaerm extends GridPane {
         modelValg = new LaaneaftaleComboBox(ListMediator.getBilListe());
         modelValg.setMinWidth(150);
         modelValg.setEditable(false);
+
         //model.setMaxWidth();
         this.add(modelValg, 1, 1);
         modelValg.setFocusTraversable(false);
         modelValg.setPromptText("Model");
+
+        modelValg.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                if(newValue != null) {
+                    updateCarValue();
+                }
+            }
+        });
+        // -----changeListener() -- laaneaftaleSkaerm.updateCarValue(); -----
 
         //udbetalingsprocent
         Label bilPris = new Label("Bil pris:");
@@ -106,7 +116,22 @@ public class LaaneaftaleSkaerm extends GridPane {
         udbetalingsProcentField = new TextField();
         this.add(udbetalingsProcentField,1,3);
         udbetalingsProcentField.setAlignment(Pos.BASELINE_CENTER);
+        udbetalingsProcentField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
         udbetalingsProcentField.setDisable(false);
+        udbetalingsProcentField.setStyle("-fx-text-fill: black;" +
+                " -fx-background-color: #fff200");
+
+
+        udbetalingsProcentField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (oldValue && !loebetidField.getText().isEmpty() && !carCheck()){
+                   new valueService().start();
+                }
+
+            }
+        });
+        // ----changeListener() -- notify(fakturaValueListener) ----
 
 
         //løbetid
@@ -121,7 +146,22 @@ public class LaaneaftaleSkaerm extends GridPane {
         loebetidField = new TextField();
         this.add(loebetidField,1,4);
         loebetidField.setAlignment(Pos.BASELINE_CENTER);
+        loebetidField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
         loebetidField.setDisable(false);
+        loebetidField.setStyle("-fx-text-fill: black;" +
+                " -fx-background-color: #fff200");
+
+
+        loebetidField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (oldValue && !udbetalingsProcentField.getText().isEmpty() && !carCheck()){
+                    new valueService().start();
+                }
+
+            }
+        });
+        // ----changeListener() -- notify(fakturaValueListener) ----
 
 
         //rentesats
@@ -175,10 +215,14 @@ public class LaaneaftaleSkaerm extends GridPane {
         this.add(nextButton, 2, 7);
         nextButton.setAlignment(Pos.BASELINE_RIGHT);
         nextButton.setOnAction(e -> {
-            laaneAftaleThread.stop();
-            StartSkaerm.instance().pushNode(new FakturaGodkendelse(kunde, faktura));
+            //laaneAftaleThread.stop();
+            StartSkaermController.i().pushNode(new FakturaGodkendelse(kunde, faktura));
         });
-        laaneAftaleThread.start();
+        //laaneAftaleThread.start();
+        nextButton.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-font-size: 16px; -fx-background-color: darkred;");
+
+        this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 620;");
 
 
     }
@@ -193,10 +237,10 @@ public class LaaneaftaleSkaerm extends GridPane {
 
     public boolean fieldCheck() {
 
-        return(udbetalingsProcentField.getText().isEmpty() || loebetidField.getText().isEmpty());
+        return(udbetalingsProcentField.getText().isEmpty() || loebetidField.getText().isEmpty()); // ----changeListener() -- laaneaftaleSkaerm.updateValues() ----
     }
     public boolean carCheck() {
-        return(modelValg.getValue() == null);
+        return(modelValg.getValue() == null); // -----changeListener() -- laaneaftaleSkaerm.updateCarValue(); -----
 
     }
     public void updateCarValue() {
@@ -204,4 +248,32 @@ public class LaaneaftaleSkaerm extends GridPane {
         faktura.setBilPris(modelValg.getBilPris());
         bilPrisField.setText(df.format(faktura.getBilPris()));
     }
+
+    private class valueService extends Service<String> {
+
+        private valueService() {
+
+
+            setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                @Override
+                public void handle(WorkerStateEvent event) {
+                    updateValues();
+                }
+            });
+        }
+
+        @Override
+        protected Task<String> createTask() {
+            return new Task<String>() {
+                @Override
+                protected String call() throws InterruptedException {
+
+                    return ""+(new bankDailyRate().getDailyRate());
+                }
+
+            };
+        }
+    }
+
 }
+

@@ -113,7 +113,7 @@ public class KundeSkaerm extends GridPane {
         kundeTable.setOnMouseClicked(event -> {
             if (kundeTable.getSelectionModel().getSelectedItem() != null) {
                 Kunde selectedKunde = kundeTable.getSelectionModel().getSelectedItem();
-                StartSkaerm.instance().pushNode(new KundeInfoSkaerm(selectedKunde));
+                StartSkaermController.i().pushNode(new KundeInfoSkaerm(selectedKunde));
             }
         }
         );

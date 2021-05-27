@@ -35,23 +35,23 @@ public class Faktura {
 
 
     public void check(Kunde kunde) {
-        rkiCheck(kunde.getCpr());
+        rkiCheck(kunde.getKreditVaerdighed());
         loebeTidCheck();
         udbetalingsProcentCheck();
     }
 
 
-    //Rentesats components
-    public void rkiCheck(String cpr) {
+    //Check for Rentesats components
+    public void rkiCheck(String kreditVaerdighed) {
 
-        switch (CreditRator.i().rate(cpr)) {
-            case A:
+        switch (kreditVaerdighed) {
+            case "A":
                 this.rki = 0.01;
                 break;
-            case B:
+            case "B":
                 this.rki = 0.02;
                 break;
-            case C:
+            case "C":
                 this.rki = 0.03;
                 break;
             case "D":
@@ -87,7 +87,7 @@ public class Faktura {
     }
 
     public double calcRentesats() {
-        setRentesats(rki + InterestRate.i().todaysRate() * 0.01 + loebeTidCheck() + udbetalingsProcentCheck());
+        setRentesats(rki + new bankDailyRate().getDailyRate() * 0.01 + loebeTidCheck() + udbetalingsProcentCheck());
         return getRentesats();
     }
 

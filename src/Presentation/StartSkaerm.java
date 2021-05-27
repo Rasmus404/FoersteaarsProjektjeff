@@ -4,6 +4,7 @@ import Logic.LoginChecker;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,18 +25,17 @@ public class StartSkaerm extends BorderPane{
 
     private Stack<Node> stack = new Stack<>();
     private VBox leftBorder;
-    private Button opret, kunde, igangværende, bilListe, tilbage;
+    Button opret, kunde, igangværende, bilListe, tilbage;
+    Stage stage;
 
-    private static StartSkaerm inst=null;
 
-    public static StartSkaerm instance() {
-        if (inst == null)
-            inst = new StartSkaerm();
 
-        return inst;
-    }
-    private StartSkaerm() {
 
+
+
+     StartSkaerm(Stage stage) {
+        this.stage = stage;
+        StartSkaermController.i().setStartSkaerm(this);
 
         leftBorder = new VBox();
         leftBorder.setPrefWidth(750/ 4);
@@ -46,19 +46,34 @@ public class StartSkaerm extends BorderPane{
 
 
         opret = new Button("Opret");
-        opret.setOnAction(e -> pushNode(new OpretKoebSkaerm()));
+        opret.setOnAction(e -> StartSkaermController.i().pushNode(new OpretKoebSkaerm()));
+        opret.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-font-size: 12px; -fx-background-color: black");
+
 
         kunde = new Button("Kunde");
-        kunde.setOnAction(e -> pushNode(new KundeSkaerm()));
+        kunde.setOnAction(e -> StartSkaermController.i().pushNode(new KundeSkaerm()));
+        kunde.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-font-size: 12px; -fx-background-color: black");
+
 
         igangværende = new Button("Igangværende");
-        igangværende.setOnAction(e -> pushNode(new IgangværendeSkaerm()));
+        igangværende.setOnAction(e -> StartSkaermController.i().pushNode(new IgangværendeSkaerm()));
+        igangværende.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-font-size: 12px; -fx-background-color: black");
+
 
         bilListe = new Button("Bil Liste");
-        bilListe.setOnAction(e -> pushNode(new BilListeSkaerm()));
+        bilListe.setOnAction(e -> StartSkaermController.i().pushNode(new BilListeSkaerm()));
+        bilListe.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-font-size: 12px; -fx-background-color: black");
+
 
         tilbage = new Button("Log Ud");
-        tilbage.setOnAction(e -> popNode());
+        tilbage.setOnAction(e -> StartSkaermController.i().popNode());
+        tilbage.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-font-size: 12px; -fx-background-color: black");
+
 
         opret.setPrefWidth(leftBorder.getPrefWidth() / 1.1);
         kunde.setPrefWidth(opret.getPrefWidth());
@@ -84,7 +99,7 @@ public class StartSkaerm extends BorderPane{
         logo.setImage(img);
         leftBorder.getChildren().addAll(logo, opret, kunde, igangværende, bilListe, usernameLabel, tilbage);
         logo.setPickOnBounds(true);
-        logo.setOnMouseClicked(e -> setFocus(logo2));
+        logo.setOnMouseClicked(e -> StartSkaermController.i().setFocus(logo2));
 
         this.setLeft(leftBorder);
 
@@ -92,26 +107,6 @@ public class StartSkaerm extends BorderPane{
 
 
     }
-    public void setFocus(Node focus) {
-        this.setCenter(focus);
-    }
 
-    public void pushNode(Node focus){
-        if(stack.empty()) {
-            tilbage.setText("Tilbage");
-        }
-        stack.push(this.getCenter());
-        setFocus(focus);
-    }
-    public void popNode(){
-        if(stack.empty()){
-           System.out.println("Logged ud");
-        } else {
-            setFocus(stack.pop());
-            if(stack.empty()) {
-                tilbage.setText("Log ud");
-            }
-        }
 
-    }
 }

@@ -17,10 +17,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import Logic.LoginChecker;
+import Logic.Faktura;
 
 import java.sql.SQLException;
 
 public class IgangværendeSkaerm extends GridPane {
+
+    Faktura selectedFaktura;
 
     public IgangværendeSkaerm() {
 
@@ -43,6 +47,14 @@ public class IgangværendeSkaerm extends GridPane {
         Soeg.setFont(SoegSize);
         this.add(Soeg, 1, 1);
         Soeg.setAlignment(Pos.TOP_RIGHT);
+
+        if(LoginChecker.getAdminStatus()){
+            Button godkendButton = new Button();
+            this.add(godkendButton, 2, 1);
+            godkendButton.setOnAction(ev->  new GodkendKoebPopUp(this){
+                //dialogBox.godkend(selectedFaktura);
+            });
+        }
 
 
         TableView<IgangvaerendeKoeb> kundeTable = new TableView<>(); // Kundens navn, Bil model, Dato, Status
@@ -117,6 +129,6 @@ public class IgangværendeSkaerm extends GridPane {
         Font NBSize = new Font(15);
         nextButton.setFont(NBSize);
         this.add(nextButton, 1, 2);
-        nextButton.setOnAction(e -> StartSkaerm.instance().pushNode(new KundeInfoSkaerm(null)));
+        nextButton.setOnAction(e -> StartSkaermController.i().pushNode(new KundeInfoSkaerm(null)));
     }
 }

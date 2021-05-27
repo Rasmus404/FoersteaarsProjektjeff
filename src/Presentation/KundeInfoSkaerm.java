@@ -98,7 +98,7 @@ public class KundeInfoSkaerm extends GridPane {
         kundeHistorik.setOnMouseClicked(event -> {
                     if (kundeHistorik.getSelectionModel().getSelectedItem() != null) {
                         Faktura selectedFaktura = kundeHistorik.getSelectionModel().getSelectedItem();
-                        StartSkaerm.instance().pushNode(new KvitteringSkaerm(kunde, selectedFaktura));
+                        StartSkaermController.i().pushNode(new KvitteringSkaerm(kunde, selectedFaktura));
                     }
                 }
         );

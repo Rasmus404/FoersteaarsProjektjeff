@@ -2,6 +2,13 @@ package Presentation;
 
 import Datalayer.CreditRator;
 import Datalayer.Rating;
+import Logic.bankDailyRate;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -18,6 +25,7 @@ import Logic.Kunde;
 public class OpretKoebSkaerm extends GridPane {
 
     Label errorLabel;
+    Label cprLabel;
     Button kundeButton;
     KundeListePopup kundeListePopup;
     TextField firstname;
@@ -26,9 +34,11 @@ public class OpretKoebSkaerm extends GridPane {
     TextField adresse;
     TextField by;
     TextField leveringsadresse;
+    Kunde kunde;
+
+
 
     public OpretKoebSkaerm() {
-
 
 
         this.setAlignment(Pos.TOP_LEFT);
@@ -41,12 +51,10 @@ public class OpretKoebSkaerm extends GridPane {
         this.getColumnConstraints().add(new ColumnConstraints(260));
 
 
-
         Text topLabel = new Text("Opret nyt køb");
         topLabel.setFill(Color.DARKRED);
-        topLabel.setFont(Font.font("Tahoma", FontWeight.BOLD, 25));
+        topLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 25));
         this.add(topLabel, 0, 0,2,2);
-
 
 
         // Fornavn
@@ -56,11 +64,16 @@ public class OpretKoebSkaerm extends GridPane {
         firstname.setAlignment(Pos.BASELINE_CENTER);
         firstname.setFocusTraversable(false);
         firstname.setPromptText("Navn");
+//        firstname.setStyle("-fx-background-color: darkred;");
+        firstname.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
 
 
         kundeButton = new Button("Kunde Liste");
         this.add(kundeButton,1,1);
         kundeButton.setOnAction(e -> kundeListePopup = new KundeListePopup(this));
+        kundeButton.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-font-size: 13px; -fx-background-color: darkred");
 
 
 
@@ -70,6 +83,26 @@ public class OpretKoebSkaerm extends GridPane {
         cpr.setAlignment(Pos.BASELINE_CENTER);
         cpr.setFocusTraversable(false);
         cpr.setPromptText("CPR nr");
+        cpr.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
+        cpr.setOpacity(1);
+
+
+        cpr.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (oldValue && cpr.getText().matches("^\\d{10}$")){
+                    new CprService(cpr, cprLabel).start();
+                }
+
+            }
+        });
+
+
+        cprLabel = new Label();
+        this.add(cprLabel, 1,2);
+        cprLabel.setStyle("-fx-text-fill: white");
+
 
         //telefon
         telefon = new TextField();
@@ -108,10 +141,10 @@ public class OpretKoebSkaerm extends GridPane {
         CheckBox check = new CheckBox("Ønsket levering");
         this.add(check, 1, 7);
         check.setAlignment(Pos.BOTTOM_RIGHT);
-        check.setOnAction(e-> {
+        check.setOnAction(e -> {
             if (check.isSelected()) {
-                leveringsadresse.setDisable(false);}
-            else {
+                leveringsadresse.setDisable(false);
+            } else {
                 leveringsadresse.clear();
                 leveringsadresse.setDisable(true);
             }
@@ -122,33 +155,34 @@ public class OpretKoebSkaerm extends GridPane {
         nextButton.setFont(NBSize);
         this.add(nextButton, 2, 7);
         nextButton.setAlignment(Pos.BASELINE_RIGHT);
-        nextButton.setOnAction(e ->{
-            if(kundeIsValid()) {
-            Kunde kunde = new Kunde();
-            kunde.setNavn(firstname.getText());
-            kunde.setCpr(cpr.getText());
-            kunde.setTlf(telefon.getText());
-            kunde.setAdresse(adresse.getText());
-            kunde.setBy(by.getText());
+        nextButton.setOnAction(e -> {
+                    if (kundeIsValid()) {
+                        kundeInit();
+                        kunde.setNavn(firstname.getText());
+                        kunde.setCpr(cpr.getText());
+                        kunde.setTlf(telefon.getText());
+                        kunde.setAdresse(adresse.getText());
+                        kunde.setBy(by.getText());
+                        //kunde.setCredit(cprLabel.getText())
 
-
-            if (check.isSelected() && leveringsadresse.getText().isEmpty()) {
-                kunde.setLeveringOenskes();
-            } else if(check.isSelected() && !leveringsadresse.getText().isEmpty()){
-                kunde.setLeveringsadresse(leveringsadresse.getText());
-            } else {
-                kunde.setLeveringsadresse("");
-            }
-                StartSkaerm.instance().pushNode(new LaaneaftaleSkaerm(kunde));
-            }
-            }
+                        if (check.isSelected() && leveringsadresse.getText().isEmpty()) {
+                            kunde.setLeveringOenskes();
+                        } else if (check.isSelected() && !leveringsadresse.getText().isEmpty()) {
+                            kunde.setLeveringsadresse(leveringsadresse.getText());
+                        } else {
+                            kunde.setLeveringsadresse("");
+                        }
+                        StartSkaermController.i().pushNode(new LaaneaftaleSkaerm(kunde));
+                    }
+                }
         );
     }
-    public void warningOnRKI(){
+
+    public void warningOnRKI() {
         errorLabel.setText("Kundens kreditværdighed er for ringe");
     }
 
-    public void errorOnFields(){
+    public void errorOnFields() {
         errorLabel.setText("Værdier er ikke indtastet korrekt");
     }
 
@@ -160,6 +194,7 @@ public class OpretKoebSkaerm extends GridPane {
         by.setText(kunde.getBy());
         leveringsadresse.setText(kunde.getLeveringsadresse());
     }
+
     public boolean kundeIsValid() {
         if (firstname.getText().isEmpty() ||
                 !cpr.getText().matches("^\\d{10}$") ||  //tjekker fra første karakter om der er 10 tal frem til den sidste
@@ -169,11 +204,47 @@ public class OpretKoebSkaerm extends GridPane {
         ) {
             errorOnFields();
             return false;
-        } else if (CreditRator.i().rate(this.cpr.getText()) == Rating.D) {
+        } else if (cprLabel.getText().equals("Kreditværdighed er: D") /*CreditRator.i().rate(this.cpr.getText()) == Rating.D*/) {
             warningOnRKI();
             return false;
         }
         return true;
     }
+    private void kundeInit() {
+        if(kunde == null) {
+            kunde = new Kunde();
+        }
+    }
+
+    private class CprService extends Service<String> {
+        TextField cprField;
+
+
+        private CprService(TextField cprTextField, Label cprLabel) {
+            this.cprField = cprTextField;
+
+            setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                @Override
+                public void handle(WorkerStateEvent event) {
+                     cprLabel.setText("Kreditværdighed er: " +  event.getSource().getValue().toString());
+                }
+            });
+        }
+
+        @Override
+        protected Task<String> createTask() {
+            return new Task<String>() {
+                @Override
+                protected String call() throws InterruptedException {
+                    kundeInit();
+                    kunde.setCpr(cprField.getText());
+                    kunde.checkMyRKI(kunde.getCpr());
+                    return kunde.getKreditVaerdighed();
+                }
+
+            };
+        }
+    }
+
 }
 

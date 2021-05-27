@@ -20,15 +20,17 @@ import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import Logic.LoginChecker;
 
-public class LoginSkaerm extends Application{
+public class LoginSkaerm extends StackPane{
 
     public TextField userField;
     public PasswordField passField;
     Label wrongPWLabel;
     GridPane grid;
+    Stage stage;
 
-    @Override
-    public void start(Stage stage) throws Exception {
+
+    public LoginSkaerm(Stage previousStage){
+        this.stage = previousStage;
 
         grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -72,7 +74,7 @@ public class LoginSkaerm extends Application{
         loginBtn.setFont(Font.font("Tahoma", FontWeight.LIGHT, 13));
         loginBtn.setTextFill(Color.WHITE);
         loginBtn.setOnAction(e-> {
-            newScene(LoginChecker.loginChecker(userField.getText(), passField.getText()), stage, StartSkaerm.instance());
+            newScene(LoginChecker.loginChecker(userField.getText(), passField.getText()), new Stage());
         });
 
         wrongPWLabel = new Label();
@@ -87,29 +89,27 @@ public class LoginSkaerm extends Application{
 
         Image img = new Image("file:ferrari.jpg");
         ImageView image = new ImageView(img);
-        StackPane root = new StackPane(image, grid);
+
+        this.getChildren().addAll(image, grid);
 
 
-        Scene scene = new Scene(root);
-        stage.setWidth(750);
-        stage.setHeight(535);
-        stage.setScene(scene);
-        stage.setTitle("Ferrari - FL");
-        Image icon = new Image("file:logo.png");
-        stage.getIcons().add(icon);
-        stage.show();
+
 
     }
-    private void newScene(Boolean loginStatus, Stage stage, BorderPane pane) {
-        Scene scene = new Scene(pane);
+    private void newScene(Boolean loginStatus, Stage nextStage) {
+
         if(loginStatus) {
-            stage.setScene(scene);
-            stage.show();
+            Scene scene = new Scene(new StartSkaerm(nextStage));
+            nextStage.setScene(scene);
+            nextStage.show();
+            stage.close();
+
         } else {
-            wrongPWLabel.setText("Thats the wrooong number");
+            wrongPWLabel.setText("Password er indtastet forkert");
 
         }
     }
+
 }
 
 
