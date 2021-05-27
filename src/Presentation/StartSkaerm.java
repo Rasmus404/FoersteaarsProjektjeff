@@ -45,6 +45,7 @@ public class StartSkaerm extends BorderPane{
         leftBorder.setSpacing(20);
 
 
+
         opret = new Button("Opret");
         opret.setOnAction(e -> StartSkaermController.i().pushNode(new OpretKoebSkaerm()));
         opret.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +

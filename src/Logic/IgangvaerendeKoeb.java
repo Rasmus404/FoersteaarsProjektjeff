@@ -48,4 +48,11 @@ public class IgangvaerendeKoeb {
             status = "Mangler Godkendelse";
         }
     }
+
+
+    public String getStatus(){
+        return status;
+    }
+
+
 }

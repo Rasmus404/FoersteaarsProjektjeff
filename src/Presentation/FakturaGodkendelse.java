@@ -17,6 +17,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.control.TextField;
+
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -54,93 +56,133 @@ public class FakturaGodkendelse extends GridPane {
         Label model = new Label("Model:");
         this.add(model, 0, 1);
         model.setAlignment(Pos.BASELINE_CENTER);
-        model.setTextFill(Color.web("#8B0000"));
-        model.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
+        model.setTextFill(Color.web("Darkred"));
+        model.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
-        Label modelValgt = new Label(faktura.getModel());
+
+        TextField modelValgt = new TextField(faktura.getModel());
         this.add(modelValgt, 1, 1);
         modelValgt.setAlignment(Pos.BASELINE_CENTER);
-        modelValgt.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
+        modelValgt.setDisable(true);
+        modelValgt.setOpacity(1);
+        modelValgt.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
+        modelValgt.setStyle("-fx-text-fill: white;" +
+                "-fx-prompt-text-fill: white; -fx-background-color: darkred");
 
         //Bil pris
         Label bilPris = new Label("Bilpris:");
         this.add(bilPris, 0, 2);
         bilPris.setAlignment(Pos.BASELINE_CENTER);
-        bilPris.setTextFill(Color.web("#8B0000"));
-        bilPris.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
+        bilPris.setTextFill(Color.web("darkred"));
+        bilPris.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
-        Label bilPrisField = new Label("" + faktura.getBilPris());
+        TextField bilPrisField = new TextField("" + faktura.getBilPris());
         this.add(bilPrisField,1,2);
         bilPrisField.setAlignment(Pos.BASELINE_CENTER);
+        bilPrisField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
         bilPrisField.setDisable(true);
+        bilPrisField.setOpacity(1);
+        bilPrisField.setStyle("-fx-text-fill: white;" +
+                "-fx-prompt-text-fill: white; -fx-background-color: darkred");
 
         //udbetalingsprocent textfield
         Label udbetalingsprocent = new Label("Udbetalingsprocent:");
         this.add(udbetalingsprocent, 0, 3);
         udbetalingsprocent.setAlignment(Pos.BASELINE_CENTER);
-        udbetalingsprocent.setTextFill(Color.web("#8B0000"));
-        udbetalingsprocent.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
+        udbetalingsprocent.setTextFill(Color.web("darkred"));
+        udbetalingsprocent.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
-        Label ubField = new Label("" + faktura.getUdbetalingsprocent());
+        TextField ubField = new TextField("" + faktura.getUdbetalingsprocent());
         this.add(ubField,1,3);
         ubField.setAlignment(Pos.BASELINE_CENTER);
+        ubField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
         ubField.setDisable(true);
+        ubField.setOpacity(1);
+        ubField.setOpacity(1);
+        ubField.setStyle("-fx-text-fill: white;" +
+                "-fx-prompt-text-fill: white; -fx-background-color: darkred");
+
 
         //loebetid
         Label loebetid = new Label("Løbetid:");
         this.add(loebetid, 0, 4);
         loebetid.setAlignment(Pos.BASELINE_CENTER);
-        loebetid.setTextFill(Color.web("#8B0000"));
-        loebetid.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
+        loebetid.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
+        loebetid.setTextFill(Color.web("darkred"));
+        loebetid.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
-        Label loebetidField = new Label("" + faktura.getLoebetid());
+        TextField loebetidField = new TextField("" + faktura.getLoebetid());
         this.add(loebetidField,1,4);
         loebetidField.setAlignment(Pos.BASELINE_CENTER);
+        loebetidField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
         loebetidField.setDisable(true);
+        loebetidField.setOpacity(1);
+        loebetidField.setStyle("-fx-text-fill: white;" +
+                "-fx-prompt-text-fill: white; -fx-background-color: darkred");
+
+
 
         //rentesats
         Label rentesats = new Label("Rentesats");
         this.add(rentesats, 0, 5);
         rentesats.setAlignment(Pos.BASELINE_CENTER);
-        rentesats.setTextFill(Color.web("#8B0000"));
-        rentesats.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
+        rentesats.setTextFill(Color.web("darkred"));
+        rentesats.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
-        Label renteField = new Label("" + faktura.calcRentesats( )); //Har bare gjort den til 10 så der ikke opstår nogen fejl
+
+        TextField renteField = new TextField("" + faktura.calcRentesats( )); //Har bare gjort den til 10 så der ikke opstår nogen fejl
         this.add(renteField,1,5);
         renteField.setAlignment(Pos.BASELINE_CENTER);
+        renteField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
         renteField.setDisable(true);
+        renteField.setOpacity(1);
+        renteField.setStyle("-fx-text-fill: white;" +
+                "-fx-prompt-text-fill: white; -fx-background-color: darkred");
+
 
         //månedlig udbetaling
         Label maanedligudbetaling = new Label("Månedligudbetaling");
         this.add(maanedligudbetaling, 0, 6);
         maanedligudbetaling.setAlignment(Pos.BASELINE_CENTER);
-        maanedligudbetaling.setTextFill(Color.web("#8B0000"));
-        maanedligudbetaling.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
+        maanedligudbetaling.setTextFill(Color.web("darkred"));
+        maanedligudbetaling.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
-        Label mdrUdbetalingField = new Label("" + faktura.getMdrUdbetaling());
+        TextField mdrUdbetalingField = new TextField("" + faktura.getMdrUdbetaling());
         this.add(mdrUdbetalingField,1,6);
         mdrUdbetalingField.setAlignment(Pos.BASELINE_CENTER);
+        mdrUdbetalingField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
         mdrUdbetalingField.setDisable(true);
+        mdrUdbetalingField.setOpacity(1);
+        mdrUdbetalingField.setStyle("-fx-text-fill: white;" +
+                "-fx-prompt-text-fill: white; -fx-background-color: darkred");
 
         // totalpris
         Label totalpris = new Label("Totalpris");
         this.add(totalpris, 0, 7);
         totalpris.setAlignment(Pos.BASELINE_CENTER);
-        totalpris.setTextFill(Color.web("#8B0000"));
-        totalpris.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
+        totalpris.setTextFill(Color.web("darkred"));
+        totalpris.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
-        Label prisField = new Label("" + faktura.getTotalPris());
+        TextField prisField = new TextField("" + faktura.getTotalPris());
         this.add(prisField,1,7);
         prisField.setAlignment(Pos.BASELINE_CENTER);
+        prisField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
         prisField.setDisable(true);
+        prisField.setOpacity(1);
+        prisField.setStyle("-fx-text-fill: white;" +
+                "-fx-prompt-text-fill: white; -fx-background-color: darkred");
+
+        this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 620;");
+
+
 
 
         //Dato
         Label datoLabel = new Label("Start dato");
         this.add(datoLabel, 0, 8);
         datoLabel.setAlignment(Pos.BASELINE_CENTER);
-        datoLabel.setTextFill(Color.web("#8B0000"));
-        datoLabel.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
+        datoLabel.setTextFill(Color.web("darkred"));
+        datoLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
         this.dp = new DatePicker();
         dp.setOnAction((new EventHandler<ActionEvent>() {
@@ -184,6 +226,8 @@ public class FakturaGodkendelse extends GridPane {
                 StartSkaermController.i().clearAndStartNew(new KundeSkaerm());
             }
         );
+        confirmBtn.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-font-size: 16px; -fx-background-color: darkred");
     }
     public Kunde kundeExists(Kunde kunde) {
 

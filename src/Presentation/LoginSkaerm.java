@@ -52,10 +52,13 @@ public class LoginSkaerm extends StackPane{
         lblUser.setTextFill(Color.web("#FFFFFF"));
 
 
-
         userField = new TextField();
         userField.setPromptText("brugernavn");
         grid.add(userField, 1, 1);
+        userField.setStyle("-fx-text-fill: black; -fx-font-weight: bold;" +
+                "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: white");
+
+
 
         Label lblPassword = new Label("Adgangskode:");
         grid.add(lblPassword, 0, 2);
@@ -67,6 +70,10 @@ public class LoginSkaerm extends StackPane{
         passField = new PasswordField();
         passField.setPromptText("adgangskode");
         grid.add(passField, 1, 2);
+        passField.setStyle("-fx-text-fill: black; -fx-font-weight: bold;" +
+                "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: white");
+
+
 
         Button loginBtn = new Button("Login");
         grid.add(loginBtn, 1, 3);
@@ -76,6 +83,9 @@ public class LoginSkaerm extends StackPane{
         loginBtn.setOnAction(e-> {
             newScene(LoginChecker.loginChecker(userField.getText(), passField.getText()), new Stage());
         });
+        loginBtn.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-font-size: 12px; -fx-background-color: black");
+
 
         wrongPWLabel = new Label();
         grid.add(wrongPWLabel, 1,4);

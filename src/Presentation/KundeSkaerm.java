@@ -35,7 +35,7 @@ public class KundeSkaerm extends GridPane {
         this.getColumnConstraints().add(new ColumnConstraints(200));
 
         Text topLabel = new Text("Kunde");
-        topLabel.setFont(Font.font("Tahoma", FontWeight.BOLD, 25));
+        topLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 25));
         topLabel.setFill(Color.DARKRED);
         this.add(topLabel, 1, 0,1,1);
         topLabel.setTextAlignment(TextAlignment.CENTER);
@@ -55,6 +55,14 @@ public class KundeSkaerm extends GridPane {
         navnColumn.setCellValueFactory(new PropertyValueFactory<>("navn"));
         tlfColumn.setCellValueFactory(new PropertyValueFactory<>("tlf"));
         byColumn.setCellValueFactory(new PropertyValueFactory<>("by"));
+
+        navnColumn.setStyle("-fx-alignment: CENTER;");
+        tlfColumn.setStyle("-fx-alignment: CENTER;");
+        byColumn.setStyle( "-fx-alignment: CENTER;");
+
+        this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 620;");
+
+
 
         navnColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.30));
         tlfColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.30));

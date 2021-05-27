@@ -110,6 +110,9 @@ public class OpretKoebSkaerm extends GridPane {
         telefon.setAlignment(Pos.BASELINE_CENTER);
         telefon.setFocusTraversable(false);
         telefon.setPromptText("Telefon nr");
+        telefon.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
+
 
         //adresse
         adresse = new TextField();
@@ -117,17 +120,27 @@ public class OpretKoebSkaerm extends GridPane {
         adresse.setAlignment(Pos.BASELINE_CENTER);
         adresse.setFocusTraversable(false);
         adresse.setPromptText("Adresse");
+        adresse.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
+
 
         by = new TextField();
         this.add(by, 0, 5);
         by.setAlignment(Pos.BASELINE_CENTER);
         by.setFocusTraversable(false);
         by.setPromptText("By");
+        by.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
+
+
 
         errorLabel = new Label();
         this.add(errorLabel, 2, 6);
         errorLabel.setTextFill(Color.web("#FF0000"));
         errorLabel.setAlignment(Pos.BASELINE_LEFT);
+        errorLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
+
+
 
         //leveringsadresse
         leveringsadresse = new TextField();
@@ -136,6 +149,11 @@ public class OpretKoebSkaerm extends GridPane {
         leveringsadresse.setFocusTraversable(false);
         leveringsadresse.setPromptText("Leveringsadresse");
         leveringsadresse.setDisable(true);
+        leveringsadresse.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
+
+//        this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 400;");
+        this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 620;");
 
 
         CheckBox check = new CheckBox("Ønsket levering");
@@ -176,6 +194,10 @@ public class OpretKoebSkaerm extends GridPane {
                     }
                 }
         );
+        nextButton.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-font-size: 16px; -fx-background-color: darkred");
+
+
     }
 
     public void warningOnRKI() {

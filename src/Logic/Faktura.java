@@ -202,6 +202,25 @@ public class Faktura {
     public void setKoebsdato(Date koebsdato) {
         this.koebsdato = koebsdato;
     }
+
+
+
+    @Override
+    public String toString() {
+        return "Faktura{" +
+                "faktura_id=" + faktura_id +
+                ", kunde_id=" + kunde_id +
+                ", model='" + model + '\'' +
+                ", bilPris=" + bilPris +
+                ", udbetalingsprocent=" + udbetalingsprocent +
+                ", loebetid=" + loebetid +
+                ", rki=" + rki +
+                ", rentesats=" + rentesats +
+                ", fakturaGodkendt=" + fakturaGodkendt +
+                ", koebsdato=" + koebsdato +
+                ", kunde=" + kunde +
+                '}';
+    }
 }
 
 

@@ -33,34 +33,54 @@ public class KundeInfoSkaerm extends GridPane {
         this.add(kundeNavn, 1, 0);
         kundeNavn.setAlignment(Pos.TOP_RIGHT);
         kundeNavn.setDisable(true);
+        kundeNavn.setOpacity(1);
         kundeNavn.setText(kunde.getNavn());
+        kundeNavn.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
+
+
 
         Label navnLabel = new Label("Navn:");
         navnLabel.setFont(Font.font("Tahoma", FontWeight.BOLD, 15));
         this.add(navnLabel, 0, 0);
         navnLabel.setAlignment(Pos.TOP_LEFT);
+        navnLabel.setStyle("-fx-text-fill: darkred; -fx-font-weight: bold;");
+
 
         TextField kundeTelefon = new TextField();
         this.add(kundeTelefon, 1, 1);
         kundeTelefon.setAlignment(Pos.TOP_RIGHT);
         kundeTelefon.setDisable(true);
+        kundeTelefon.setOpacity(1);
         kundeTelefon.setText(kunde.getTlf());
+        kundeTelefon.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
+
+
 
         Label telefonLabel = new Label("Telefon:");
         telefonLabel.setFont(Font.font("Tahoma", FontWeight.BOLD, 15));
         this.add(telefonLabel, 0, 1);
         telefonLabel.setAlignment(Pos.TOP_LEFT);
+        telefonLabel.setStyle("-fx-text-fill: darkred; -fx-font-weight: bold;");
 
         TextField kundeAdresse = new TextField();
         this.add(kundeAdresse, 1, 2);
         kundeAdresse.setAlignment(Pos.TOP_RIGHT);
         kundeAdresse.setDisable(true);
+        kundeAdresse.setOpacity(1);
         kundeAdresse.setText(kunde.getAdresse());
+        kundeAdresse.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
+
+
 
         Label adresseLabel = new Label("Adresse:");
         adresseLabel.setFont(Font.font("Tahoma", FontWeight.BOLD, 15));
         this.add(adresseLabel, 0, 2);
         adresseLabel.setAlignment(Pos.TOP_LEFT);
+        adresseLabel.setStyle("-fx-text-fill: darkred; -fx-font-weight: bold;");
+
 
         Button sletbtn = new Button("Slet");
         this.add(sletbtn,2,0);
@@ -70,6 +90,12 @@ public class KundeInfoSkaerm extends GridPane {
             } catch (SQLException e1) {
             }
         } );
+
+        sletbtn.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
+                "-fx-font-size: 12px; -fx-background-color: darkred");
+
+
+        this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 620;");
 
 
         TableView<Faktura> kundeHistorik = new TableView();

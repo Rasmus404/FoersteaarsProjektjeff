@@ -69,6 +69,10 @@ public class KundeListePopup {
                 }
         );
 
+        Button exportBtn = new Button("Export");
+
+
+
         Image icon = new Image("file:logo.png");
         popupwindow.getIcons().add(icon);
 
@@ -81,3 +85,4 @@ public class KundeListePopup {
         popupwindow.showAndWait();
     }
 }
+

@@ -44,15 +44,15 @@ public class BilListeSkaerm extends GridPane {
         this.getColumnConstraints().add(new ColumnConstraints(100));
         this.getColumnConstraints().add(new ColumnConstraints(60));
         this.getColumnConstraints().add(new ColumnConstraints(60));
+
         Text topLabel = new Text("Bil liste");
-        topLabel.setFont(Font.font("Tahoma", FontWeight.BOLD, 25));
+        topLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 25));
         topLabel.setFill(Color.DARKRED);
         this.add(topLabel, 3, 0, 1, 1);
         topLabel.setTextAlignment(TextAlignment.CENTER);
 
         errorLabel = new Label();
         this.add(errorLabel, 4, 0, 2, 1);
-
 
 
 
@@ -67,6 +67,9 @@ public class BilListeSkaerm extends GridPane {
         bilTable.getColumns().add(navnColumn);
         bilTable.getColumns().add(prisColumn);
         bilTable.setPrefSize(500, 350);
+
+        this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 620;");
+
 
         //----
         bilTable.setOnMouseClicked(event -> {

@@ -54,7 +54,7 @@ public class LaaneaftaleSkaerm extends GridPane {
         this.getColumnConstraints().add(new ColumnConstraints(260));
 
         Text topLabel = new Text("Rente Aftale - " + kunde.getNavn());
-        topLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 25));
+        topLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 25));
         this.add(topLabel, 0, 0,2,2);
         topLabel.setFill(Color.DARKRED);
 
@@ -63,9 +63,9 @@ public class LaaneaftaleSkaerm extends GridPane {
         Label model = new Label("Model:");
         this.add(model, 0, 1);
         model.setAlignment(Pos.BASELINE_CENTER);
-        model.setTextFill(Color.web("#8B0000"));
-        model.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
+        model.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         //model
+        model.setStyle("-fx-text-fill: darkred;");
 
 
         modelValg = new LaaneaftaleComboBox(ListMediator.getBilListe());
@@ -91,15 +91,19 @@ public class LaaneaftaleSkaerm extends GridPane {
         Label bilPris = new Label("Bil pris:");
         this.add(bilPris, 0, 2);
         bilPris.setAlignment(Pos.BASELINE_CENTER);
-        bilPris.setTextFill(Color.web("#8B0000"));
-        bilPris.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
-
+        bilPris.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
+        bilPris.setStyle("-fx-text-fill: darkred;");
 
 
         bilPrisField = new TextField();
         this.add(bilPrisField,1,2);
         bilPrisField.setAlignment(Pos.BASELINE_CENTER);
+        bilPrisField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
         bilPrisField.setDisable(true);
+        bilPrisField.setOpacity(1);
+        bilPrisField.setStyle("-fx-text-fill: white;" +
+                " -fx-background-color: darkred");
+
 
 
 
@@ -108,9 +112,8 @@ public class LaaneaftaleSkaerm extends GridPane {
         Label udbetalingsprocent = new Label("Udbetalingsprocent:");
         this.add(udbetalingsprocent, 0, 3);
         udbetalingsprocent.setAlignment(Pos.BASELINE_CENTER);
-        udbetalingsprocent.setTextFill(Color.web("#8B0000"));
-        udbetalingsprocent.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
-
+        udbetalingsprocent.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
+        udbetalingsprocent.setStyle("-fx-text-fill: darkred;");
 
 
         udbetalingsProcentField = new TextField();
@@ -138,9 +141,8 @@ public class LaaneaftaleSkaerm extends GridPane {
         Label loebetid = new Label("Løbetid:");
         this.add(loebetid, 0, 4);
         loebetid.setAlignment(Pos.BASELINE_CENTER);
-        loebetid.setTextFill(Color.web("#8B0000"));
-        loebetid.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
-
+        loebetid.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
+        loebetid.setStyle("-fx-text-fill: darkred;");
 
 
         loebetidField = new TextField();
@@ -168,44 +170,55 @@ public class LaaneaftaleSkaerm extends GridPane {
         Label rentesats = new Label("Rentesats");
         this.add(rentesats, 0, 5);
         rentesats.setAlignment(Pos.BASELINE_CENTER);
-        rentesats.setTextFill(Color.web("#8B0000"));
-        rentesats.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
-
+        rentesats.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
+        rentesats.setStyle("-fx-text-fill: darkred;");
 
 
         renteField = new TextField();
         this.add(renteField,1,5);
+        renteField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
         renteField.setAlignment(Pos.BASELINE_CENTER);
         renteField.setDisable(true);
+        renteField.setOpacity(1);
+        renteField.setStyle("-fx-text-fill: white;" +
+                " -fx-background-color: darkred");
 
 
         //månedlig udbetaling
         Label maanedligudbetaling = new Label("Månedligudbetaling");
         this.add(maanedligudbetaling, 0, 6);
         maanedligudbetaling.setAlignment(Pos.BASELINE_CENTER);
-        maanedligudbetaling.setTextFill(Color.web("#8B0000"));
-        maanedligudbetaling.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
-
+        maanedligudbetaling.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
+        maanedligudbetaling.setStyle("-fx-text-fill: darkred;");
 
 
         mdrUdbetalingField = new TextField();
         this.add(mdrUdbetalingField,1,6);
         mdrUdbetalingField.setAlignment(Pos.BASELINE_CENTER);
+        mdrUdbetalingField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
         mdrUdbetalingField.setDisable(true);
+        mdrUdbetalingField.setOpacity(1);
+        mdrUdbetalingField.setStyle("-fx-text-fill: white;" +
+                " -fx-background-color: darkred");
 
 
         // totalpris
         Label totalpris = new Label("Total Pris:");
         this.add(totalpris, 0, 7);
         totalpris.setAlignment(Pos.BASELINE_CENTER);
-        totalpris.setTextFill(Color.web("#8B0000"));
-        totalpris.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
+        totalpris.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
+        totalpris.setStyle("-fx-text-fill: darkred;");
+
 
 
         prisField = new TextField();
         this.add(prisField,1,7);
         prisField.setAlignment(Pos.BASELINE_CENTER);
+        prisField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
         prisField.setDisable(true);
+        prisField.setOpacity(1);
+        prisField.setStyle("-fx-text-fill: white;" +
+                " -fx-background-color: darkred");
 
 
 

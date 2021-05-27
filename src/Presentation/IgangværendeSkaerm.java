@@ -67,11 +67,16 @@ public class IgangværendeSkaerm extends GridPane {
         bilColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
         datoColumn.setCellValueFactory(new PropertyValueFactory<>("startDato"));
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        navnColumn.setStyle("-fx-alignment: CENTER;");
+        bilColumn.setStyle("-fx-alignment: CENTER;");
+        datoColumn.setStyle("-fx-alignment: CENTER;");
+        statusColumn.setStyle("-fx-alignment: CENTER;");
+
 
         navnColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.23));
         bilColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.23));
         datoColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.23));
-        statusColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.23));
+        statusColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.23));  //
         kundeTable.getColumns().add(navnColumn);
         kundeTable.getColumns().add(bilColumn);
         kundeTable.getColumns().add(datoColumn);
@@ -83,13 +88,14 @@ public class IgangværendeSkaerm extends GridPane {
         this.add(kundeTable, 0, 2, 3, 1);
 
 
-//---------------------------------------------------
-        FilteredList<Kunde> flKunde = new FilteredList(obsListe, p -> true); // Flytter data til en filtered list
-        //kundelist.setItems(flKunde); //Sætter tableviewets items ved brug af vores filtered list
-        //kundelist.getColumns().addAll(navnColumn,tlfColumn,byColumn);
+        this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 620;");
 
-        ChoiceBox<String> choiceBox = new ChoiceBox();
-        choiceBox.getItems().addAll("Navn", "Telefon nr", "By");
+//---------------------------------------------------
+        FilteredList<IgangvaerendeKoeb> flKunde = new FilteredList(obsListe, p -> true); // Flytter data til en filtered list
+        kundeTable.setItems(flKunde); //Sætter tableviewets items ved brug af vores filtered list
+
+        ChoiceBox<String> choiceBox = new ChoiceBox();  //"Navn", "Bil model", "Start dato", "Status";
+        choiceBox.getItems().addAll("Navn", "Bil model", "Start dato", "Status");
         choiceBox.setValue("Navn"); //det den starter med
 
         TextField soegefelt = new TextField();
@@ -103,12 +109,16 @@ public class IgangværendeSkaerm extends GridPane {
                 flKunde.setPredicate(p -> p.getNavn().toLowerCase().contains(newValue.toLowerCase().trim()));
                 break;
 
-                case "Telefon nr":
-                    flKunde.setPredicate(p -> p.getTlf().toLowerCase().contains(newValue.toLowerCase().trim()));
+                case "Bil model":
+                    flKunde.setPredicate(p -> p.getModel().toLowerCase().contains(newValue.toLowerCase().trim()));
                     break;
 
-                case "By":
-                    flKunde.setPredicate(p -> p.getBy().toLowerCase().contains(newValue.toLowerCase().trim()));
+                case "Start dato":
+                    flKunde.setPredicate(p -> p.getStartDato().toLowerCase().contains(newValue.toLowerCase().trim()));
+                    break;
+
+                case "Status":
+                    flKunde.setPredicate(p -> p.getStatus().toLowerCase().contains(newValue.toLowerCase().trim()));
                     break;
             }
         });
