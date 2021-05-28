@@ -55,6 +55,9 @@ public class IgangværendeSkaerm extends GridPane {
         TableColumn<IgangvaerendeKoeb, String> datoColumn = new TableColumn("Start dato");
         TableColumn<IgangvaerendeKoeb, String> statusColumn = new TableColumn("Status");
 
+        kundeTable.setStyle("-fx-selection-bar: red; -fx-selection-bar-non-focused: salmon; -fx-background-color: darkred; " +
+                "-fx-text-fill: red;");
+
         navnColumn.setCellValueFactory(new PropertyValueFactory<>("navn"));
         bilColumn.setCellValueFactory(new PropertyValueFactory<>("model"));
         datoColumn.setCellValueFactory(new PropertyValueFactory<>("startDato"));
@@ -100,45 +103,45 @@ public class IgangværendeSkaerm extends GridPane {
             });
         }
 //---------------------------------------------------
-        FilteredList<IgangvaerendeKoeb> flKunde = new FilteredList(obsListe, p -> true); // Flytter data til en filtered list
-        kundeTable.setItems(flKunde); //Sætter tableviewets items ved brug af vores filtered list
+            FilteredList<IgangvaerendeKoeb> flKunde = new FilteredList(obsListe, p -> true); // Flytter data til en filtered list
+            kundeTable.setItems(flKunde); //Sætter tableviewets items ved brug af vores filtered list
 
-        ChoiceBox<String> choiceBox = new ChoiceBox();  //"Navn", "Bil model", "Start dato", "Status";
-        choiceBox.getItems().addAll("Navn", "Bil model", "Start dato", "Status");
-        choiceBox.setValue("Navn"); //det den starter med
+            ChoiceBox<String> choiceBox = new ChoiceBox();  //"Navn", "Bil model", "Start dato", "Status";
+            choiceBox.getItems().addAll("Navn", "Bil model", "Start dato", "Status");
+            choiceBox.setValue("Navn"); //det den starter med
 
-        TextField soegefelt = new TextField();
-        soegefelt.setPromptText("Søgefelt");
-        this.add(soegefelt, 0, 1);
-        soegefelt.setAlignment(Pos.TOP_LEFT);
-        soegefelt.textProperty().addListener((obs, oldValue, newValue) -> {
-            switch(choiceBox.getValue()){
+            TextField soegefelt = new TextField();
+            soegefelt.setPromptText("Søgefelt");
+            this.add(soegefelt, 0, 1);
+            soegefelt.setAlignment(Pos.TOP_LEFT);
+            soegefelt.textProperty().addListener((obs, oldValue, newValue) -> {
+                switch (choiceBox.getValue()) {
 
-                case "Navn":
-                flKunde.setPredicate(p -> p.getNavn().toLowerCase().contains(newValue.toLowerCase().trim()));
-                break;
+                    case "Navn":
+                        flKunde.setPredicate(p -> p.getNavn().toLowerCase().contains(newValue.toLowerCase().trim()));
+                        break;
 
-                case "Bil model":
-                    flKunde.setPredicate(p -> p.getModel().toLowerCase().contains(newValue.toLowerCase().trim()));
-                    break;
+                    case "Bil model":
+                        flKunde.setPredicate(p -> p.getModel().toLowerCase().contains(newValue.toLowerCase().trim()));
+                        break;
 
-                case "Start dato":
-                    flKunde.setPredicate(p -> p.getStartDato().toLowerCase().contains(newValue.toLowerCase().trim()));
-                    break;
+                    case "Start dato":
+                        flKunde.setPredicate(p -> p.getStartDato().toLowerCase().contains(newValue.toLowerCase().trim()));
+                        break;
 
-                case "Status":
-                    flKunde.setPredicate(p -> p.getStatus().toLowerCase().contains(newValue.toLowerCase().trim()));
-                    break;
-            }
-        });
+                    case "Status":
+                        flKunde.setPredicate(p -> p.getStatus().toLowerCase().contains(newValue.toLowerCase().trim()));
+                        break;
+                }
+            });
 
-        choiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)
-                -> {//resetter vores table og textfield når noget nyt er selected
-            if (newVal != null) {
-                soegefelt.setText(""); //soegefelt.setText("");
-            }
-        });
-        this.add(choiceBox,1,1);
+            choiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)
+                    -> {//resetter vores table og textfield når noget nyt er selected
+                if (newVal != null) {
+                    soegefelt.setText(""); //soegefelt.setText("");
+                }
+            });
+            this.add(choiceBox, 1, 1);
 
 //---------------------------------------------------
 

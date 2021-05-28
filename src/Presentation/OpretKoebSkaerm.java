@@ -136,9 +136,10 @@ public class OpretKoebSkaerm extends GridPane {
 
         errorLabel = new Label();
         this.add(errorLabel, 2, 6);
-        errorLabel.setTextFill(Color.web("#FF0000"));
+        errorLabel.setTextFill(Color.WHITE);
         errorLabel.setAlignment(Pos.BASELINE_LEFT);
-        errorLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
+        errorLabel.setStyle("-fx-font-weight: bold;" +
+                "-fx-font-size: 13px;");
 
 
 

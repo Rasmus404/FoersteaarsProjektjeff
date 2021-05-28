@@ -18,6 +18,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -31,16 +33,19 @@ import java.util.Locale;
 
 public class KvitteringSkaerm extends GridPane {
 
+
     Kunde kunde;
     Faktura faktura;
     DecimalFormat df;
+    KvitteringSkaerm kvitteringSkaerm;
+
 
     public KvitteringSkaerm(Kunde kunde, Faktura faktura) {
 
         this.faktura = new Faktura(kunde);
         this.kunde = kunde;
         this.df = new DecimalFormat("#,###.##", new DecimalFormatSymbols(Locale.GERMAN));
-
+        this.kvitteringSkaerm = kvitteringSkaerm;
 
         this.setAlignment(Pos.TOP_LEFT);
         this.setHgap(20);
@@ -244,25 +249,24 @@ public class KvitteringSkaerm extends GridPane {
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
-                    writeExcel();
-                }
-                catch (Exception ex) {
+                    exportCsv();
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-
-
             }
-            //
         });
-
-
     }
 //             File file = new File("C:\\Users\\kongr\\IdeaProjects\\Første Års Projekt");
-    public void writeExcel() throws Exception {
+    public void exportCsv() throws Exception {
         Writer writer = null;
+        Stage stage = new Stage();
         try {
-            File file = new File("C:\\Users\\kongr\\IdeaProjects\\Første Års Projekt\\Eksempel.csv");
+            FileChooser fc = new FileChooser();
+            fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("*csv","*"));
+            fc.setTitle("Gem som");
+            File file = fc.showSaveDialog(stage);
             writer = new BufferedWriter(new FileWriter(file));
+
             for (Faktura faktura : ListMediator.getFakturaListeByKunde(kunde)) {
 
                 String text = faktura.toString();

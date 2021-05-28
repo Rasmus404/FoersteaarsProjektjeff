@@ -104,6 +104,10 @@ public class KundeInfoSkaerm extends GridPane {
         TableColumn<Faktura, Double> Koebspris = new TableColumn("Købsbilpris");
         TableColumn<Faktura, Double> Koebsdato = new TableColumn("Købsdato");
 
+        kundeHistorik.setStyle("-fx-selection-bar: red; -fx-selection-bar-non-focused: salmon; -fx-background-color: darkred; " +
+                "-fx-text-fill: red;");
+
+
         Model.setCellValueFactory(new PropertyValueFactory<>("model"));
         Koebspris.setCellValueFactory(new PropertyValueFactory<>("bilPris"));
         Koebsdato.setCellValueFactory(new PropertyValueFactory<>("koebsdato")); //ændres købsdato

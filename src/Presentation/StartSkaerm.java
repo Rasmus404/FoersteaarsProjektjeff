@@ -98,6 +98,9 @@ public class StartSkaerm extends BorderPane{
         Image img = new Image("file:logo.png");
         ImageView logo = new ImageView(img);
         logo.setImage(img);
+        stage.setTitle("Ferrari - FL");
+        Image icon = new Image("file:logo.png");
+        stage.getIcons().add(icon);
         leftBorder.getChildren().addAll(logo, opret, kunde, igangværende, bilListe, usernameLabel, tilbage);
         logo.setPickOnBounds(true);
         logo.setOnMouseClicked(e -> StartSkaermController.i().setFocus(logo2));

@@ -78,6 +78,7 @@ public class LaaneaftaleSkaerm extends GridPane {
         modelValg.setFocusTraversable(false);
         modelValg.setPromptText("Model");
 
+
         modelValg.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
@@ -122,8 +123,8 @@ public class LaaneaftaleSkaerm extends GridPane {
         udbetalingsProcentField.setAlignment(Pos.BASELINE_CENTER);
         udbetalingsProcentField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
         udbetalingsProcentField.setDisable(false);
-        udbetalingsProcentField.setStyle("-fx-text-fill: black;" +
-                " -fx-background-color: #fff200");
+        udbetalingsProcentField.setStyle("-fx-text-fill: white;" +
+                " -fx-background-color: #da614e");
 
 
         udbetalingsProcentField.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -151,8 +152,8 @@ public class LaaneaftaleSkaerm extends GridPane {
         loebetidField.setAlignment(Pos.BASELINE_CENTER);
         loebetidField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
         loebetidField.setDisable(false);
-        loebetidField.setStyle("-fx-text-fill: black;" +
-                " -fx-background-color: #fff200");
+        loebetidField.setStyle("-fx-text-fill: white;" +
+                " -fx-background-color: #da614e");
 
 
         loebetidField.focusedProperty().addListener(new ChangeListener<Boolean>() {

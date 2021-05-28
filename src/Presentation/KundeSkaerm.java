@@ -52,6 +52,10 @@ public class KundeSkaerm extends GridPane {
         TableColumn<Kunde, String> tlfColumn = new TableColumn("Telefon nr");
         TableColumn<Kunde, String> byColumn = new TableColumn("By");
 
+        kundeTable.setStyle("-fx-selection-bar: red; -fx-selection-bar-non-focused: salmon; -fx-background-color: darkred; " +
+                "-fx-text-fill: red;");
+
+
         navnColumn.setCellValueFactory(new PropertyValueFactory<>("navn"));
         tlfColumn.setCellValueFactory(new PropertyValueFactory<>("tlf"));
         byColumn.setCellValueFactory(new PropertyValueFactory<>("by"));

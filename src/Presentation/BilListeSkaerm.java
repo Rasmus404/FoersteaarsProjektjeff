@@ -69,6 +69,8 @@ public class BilListeSkaerm extends GridPane {
         bilTable.setPrefSize(500, 350);
 
         this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 620;");
+        bilTable.setStyle("-fx-selection-bar: red; -fx-selection-bar-non-focused: salmon; -fx-background-color: darkred; " +
+                "-fx-text-fill: red;");
 
 
         //----
