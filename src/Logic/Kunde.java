@@ -99,6 +99,6 @@ public class Kunde {
     }
     public void deleteFromDatabase() throws SQLException {
         Datalayer DL = new Datalayer("FerrariDB");
-        DL.DeleteKunde(this);
+        DL.deleteKunde(this);
     }
 }

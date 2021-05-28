@@ -49,6 +49,13 @@ public class IgangvaerendeKoeb {
         }
     }
 
+    public int getFaktura_id() {
+        return faktura_id;
+    }
+
+    public void setFaktura_id(int faktura_id) {
+        this.faktura_id = faktura_id;
+    }
 
     public String getStatus(){
         return status;

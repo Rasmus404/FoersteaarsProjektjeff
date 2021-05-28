@@ -93,7 +93,7 @@ class DatalayerTest {
     @Test
     void deleteKunde() {
         Kunde kundeVar = dl.getKundeListByCondition("kunde_id =" + kunde.getKunde_id()).get(0);
-        dl.DeleteKunde(kunde);
+        dl.deleteKunde(kunde);
         assertNotEquals(kundeVar.getKunde_id(), dl.getKundeListByCondition("kunde_id =" + kunde.getKunde_id()).get(0).getKunde_id());
     }
 

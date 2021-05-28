@@ -218,9 +218,25 @@ public class Datalayer {
 
         return biler;
     }
+    public void updateFakturaGodkendelse(Faktura faktura) {
+        try {
+            String sql = "UPDATE Faktura SET faktura_godkendt= '" + faktura.isFakturaGodkendt() +
+                    "' WHERE faktura_id= '" + faktura.getFaktura_id() + "'";
+
+            Statement statement = connection.createStatement();
+
+            int affectedRows = statement.executeUpdate(sql);
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 
-    public void DeleteKunde(Kunde kunde) {
+
+
+    //Delete
+    public void deleteKunde(Kunde kunde) {
         deleteFakturaByKunde(kunde);
 
         try {

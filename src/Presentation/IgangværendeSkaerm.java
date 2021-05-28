@@ -48,14 +48,6 @@ public class IgangværendeSkaerm extends GridPane {
         this.add(Soeg, 1, 1);
         Soeg.setAlignment(Pos.TOP_RIGHT);
 
-        if(LoginChecker.getAdminStatus()){
-            Button godkendButton = new Button();
-            this.add(godkendButton, 2, 1);
-            godkendButton.setOnAction(ev->  new GodkendKoebPopUp(this){
-                //dialogBox.godkend(selectedFaktura);
-            });
-        }
-
 
         TableView<IgangvaerendeKoeb> kundeTable = new TableView<>(); // Kundens navn, Bil model, Dato, Status
         TableColumn<IgangvaerendeKoeb, String> navnColumn = new TableColumn("Navn");
@@ -86,6 +78,8 @@ public class IgangværendeSkaerm extends GridPane {
         ObservableList<IgangvaerendeKoeb> obsListe = FXCollections.observableArrayList(ListMediator.getIgangværendeKoebs());
         kundeTable.getItems().addAll(obsListe);
         this.add(kundeTable, 0, 2, 3, 1);
+
+//
 
 
         this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 620;");
@@ -134,11 +128,11 @@ public class IgangværendeSkaerm extends GridPane {
 //---------------------------------------------------
 
 
-
-        Button nextButton = new Button("Videre");
-        Font NBSize = new Font(15);
-        nextButton.setFont(NBSize);
-        this.add(nextButton, 1, 2);
-        nextButton.setOnAction(e -> StartSkaermController.i().pushNode(new KundeInfoSkaerm(null)));
-    }
+            Button nextButton = new Button("Videre");
+            Font NBSize = new Font(15);
+            nextButton.setFont(NBSize);
+            this.add(nextButton, 1, 2);
+            nextButton.setOnAction(e -> StartSkaermController.i().pushNode(new KundeInfoSkaerm(null)));
+        }
 }
+
