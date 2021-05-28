@@ -84,6 +84,21 @@ public class IgangværendeSkaerm extends GridPane {
 
         this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 620;");
 
+        if (LoginChecker.isAdmin) {
+            Button godkendButton = new Button("Godkend");
+            this.add(godkendButton, 2, 1);
+            godkendButton.setOnAction(e -> {
+                if (kundeTable.getSelectionModel().getSelectedItem() != null) {
+                    selectedFaktura = ListMediator.getFakturaById(kundeTable.getSelectionModel().getSelectedItem().getFaktura_id()).get(0);
+                    selectedFaktura.setFakturaGodkendt(true);
+                    try{
+                        selectedFaktura.updateFakturaGodkendelseInDatabase();
+                    } catch (SQLException ex){
+                    }
+                    StartSkaermController.i().clearAndStartNew(new IgangværendeSkaerm());
+                }
+            });
+        }
 //---------------------------------------------------
         FilteredList<IgangvaerendeKoeb> flKunde = new FilteredList(obsListe, p -> true); // Flytter data til en filtered list
         kundeTable.setItems(flKunde); //Sætter tableviewets items ved brug af vores filtered list

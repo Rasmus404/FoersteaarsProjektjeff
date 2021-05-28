@@ -34,8 +34,12 @@ public class GodkendKoebPopUp {
 
 
         Button jaKnap = new Button("Ja");
-        //jaKnap.setOnAction(e -> );
+        /*jaKnap.setOnAction(e -> {
+           if(kundeTable.getSelectionModel().getSelectedItem != null) {
 
+            }
+                }
+        ); */
 
         Button nejKnap = new Button("Nej");
         //nejKnap.setOnAction(e -> );

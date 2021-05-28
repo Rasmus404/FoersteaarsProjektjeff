@@ -89,6 +89,7 @@ public class KundeInfoSkaerm extends GridPane {
                 kunde.deleteFromDatabase();
             } catch (SQLException e1) {
             }
+            StartSkaermController.i().clearAndStartNew(new KundeSkaerm());
         } );
 
         sletbtn.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
