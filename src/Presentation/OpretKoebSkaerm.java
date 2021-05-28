@@ -215,6 +215,7 @@ public class OpretKoebSkaerm extends GridPane {
         adresse.setText(kunde.getAdresse());
         by.setText(kunde.getBy());
         leveringsadresse.setText(kunde.getLeveringsadresse());
+        new CprService(cpr, cprLabel).start();
     }
 
     public boolean kundeIsValid() {

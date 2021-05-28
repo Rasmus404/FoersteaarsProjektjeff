@@ -113,9 +113,6 @@ public class KundeSkaerm extends GridPane {
         });
         this.add(choiceBox,1,1);
 
-
-
-
         this.setAlignment(Pos.CENTER_LEFT);
 
         kundeTable.setOnMouseClicked(event -> {

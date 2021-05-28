@@ -210,13 +210,18 @@ public class FakturaGodkendelse extends GridPane {
                     ;
                 } catch (SQLException e2) {
                 }
-                faktura.setFakturaGodkendtByPris(faktura.getBilPris());
+                System.out.println("faktura godkendt status = " + faktura.isFakturaGodkendt());
+                faktura.setFakturaGodkendtByPris(faktura.getLaaneBeloeb());
+                System.out.println("faktura godkendt status = " + faktura.isFakturaGodkendt());
                 faktura.setKunde_id(kunde.getKunde_id());
                 try {
                     faktura.addToDatabase();
                 } catch (SQLException e1) {
                 }
             } else {
+                System.out.println("faktura godkendt status = " + faktura.isFakturaGodkendt());
+                faktura.setFakturaGodkendtByPris(faktura.getLaaneBeloeb());
+                System.out.println("faktura godkendt status = " + faktura.isFakturaGodkendt());
                 faktura.setKunde_id(kundeVar.getKunde_id());
                 try {
                     faktura.addToDatabase();

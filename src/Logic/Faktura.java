@@ -17,6 +17,7 @@ public class Faktura {
     double udbetalingsprocent; //indsat værdi
     double loebetid; // indsat værdi
     double rki;
+    double dailyBankRate;
     double rentesats;
     boolean fakturaGodkendt;
     Date koebsdato;
@@ -30,7 +31,6 @@ public class Faktura {
     //Presentation constructor
     public Faktura(Kunde kunde) {
         this.kunde = kunde;
-        check(kunde);
     }
 
 
@@ -42,7 +42,7 @@ public class Faktura {
 
 
     //Check for Rentesats components
-    public void rkiCheck(String kreditVaerdighed) {
+    private void rkiCheck(String kreditVaerdighed) {
 
         switch (kreditVaerdighed) {
             case "A":
@@ -59,13 +59,13 @@ public class Faktura {
         }
     }
 
-    public double loebeTidCheck() {
+    private double loebeTidCheck() {
         if ((loebetid > 36)) {
             return 0.01;
         } else return 0;
     }
 
-    public double udbetalingsProcentCheck() {
+    private double udbetalingsProcentCheck() {
         if (udbetalingsprocent < 50) {
             return 0.01;
         } else return 0;
@@ -87,7 +87,7 @@ public class Faktura {
     }
 
     public double calcRentesats() {
-        setRentesats(rki + new bankDailyRate().getDailyRate() * 0.01 + loebeTidCheck() + udbetalingsProcentCheck());
+        setRentesats(rki + getDailyBankRate() * 0.01 + loebeTidCheck() + udbetalingsProcentCheck());
         return getRentesats();
     }
 
@@ -109,6 +109,10 @@ public class Faktura {
         Datalayer DL = new Datalayer("FerrariDB");
         DL.deleteFaktura(this);
     }
+    public void updateFakturaGodkendelseInDatabase() throws SQLException {
+        Datalayer DL = new Datalayer("FerrariDB");
+        DL.updateFakturaGodkendelse(this);
+    }
 
     //DateFormating
     public String getDateFormated() {
@@ -119,6 +123,14 @@ public class Faktura {
 
 
     //Getters and Setters
+    public double getDailyBankRate() {
+        return dailyBankRate;
+    }
+
+    public void setDailyBankRate(double dailyBankRate) {
+        this.dailyBankRate = dailyBankRate;
+    }
+
     public double getRentesats() {
         return rentesats;
     }
@@ -180,10 +192,10 @@ public class Faktura {
     }
 
     public void setFakturaGodkendtByPris(double pris) {
-        if(pris>1500000) {
-            this.fakturaGodkendt = false;
-        } else {
-            this.fakturaGodkendt = true;
+        if(LoginChecker.isAdmin){
+            this.fakturaGodkendt = true; System.out.println("Du er logget ind som admin, fakturaen er godkendt");
+        } else if(pris>1500000) {
+            this.fakturaGodkendt = false; System.out.println("Du er logget ind som sælger, bilen skal godkendes af din chef" );
         }
     }
 

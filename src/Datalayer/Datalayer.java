@@ -179,6 +179,8 @@ public class Datalayer {
             while (resultSet.next()) {
                 // hent data fra denne række
                 Faktura faktura = new Faktura();
+                faktura.setFaktura_id(resultSet.getInt("faktura_id"));
+                faktura.setFakturaGodkendt(resultSet.getBoolean("faktura_godkendt"));
                 faktura.setBilPris(Double.parseDouble(resultSet.getString("købsbilpris")));
                 faktura.setModel(resultSet.getString("model"));
                 faktura.setUdbetalingsprocent(Double.parseDouble(resultSet.getString("udbetalingsprocent")));
@@ -289,7 +291,10 @@ public class Datalayer {
                     e.printStackTrace();
                 }
             }
-        }
+
+}
+
+
 
 
 

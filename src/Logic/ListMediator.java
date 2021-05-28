@@ -45,6 +45,14 @@ public class ListMediator {
         }
         return fakturas;
     }
+    public static ArrayList<Faktura> getFakturaById(int id) {
+        ArrayList<Faktura> fakturas = new ArrayList<>();
+        try {
+            fakturas = getFakturasByCondition("faktura_id =" + id );
+        } catch (SQLException e) {
+        }
+        return fakturas;
+    }
 
     public static void setLaanListe(ArrayList<Faktura> laanListe) {
         ListMediator.fakturaListe = laanListe;
@@ -87,6 +95,7 @@ public class ListMediator {
         for (Kunde kundeVar : getKundeListe()) {
             for (Faktura fakturaVar : getFakturaListeByKunde(kundeVar)) {
                 IgangvaerendeKoeb ikVar = new IgangvaerendeKoeb();
+                ikVar.setFaktura_id(fakturaVar.getFaktura_id());
                 ikVar.setNavn(kundeVar.getNavn());
                 ikVar.setModel(fakturaVar.getModel());
                 ikVar.setStartDato(fakturaVar.getDateFormated());

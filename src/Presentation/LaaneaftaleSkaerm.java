@@ -42,6 +42,7 @@ public class LaaneaftaleSkaerm extends GridPane {
         LaaneAftaleThread laaneAftaleThread = new LaaneAftaleThread(this);
         this.kunde = kunde;
         this.faktura = new Faktura(kunde);
+        faktura.check(kunde);
         this.df = new DecimalFormat("#,###.##", new DecimalFormatSymbols(Locale.GERMAN));
 
         this.setAlignment(Pos.TOP_LEFT);
@@ -263,10 +264,7 @@ public class LaaneaftaleSkaerm extends GridPane {
     }
 
     private class valueService extends Service<String> {
-
         private valueService() {
-
-
             setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                 @Override
                 public void handle(WorkerStateEvent event) {
@@ -280,8 +278,8 @@ public class LaaneaftaleSkaerm extends GridPane {
             return new Task<String>() {
                 @Override
                 protected String call() throws InterruptedException {
-
-                    return ""+(new bankDailyRate().getDailyRate());
+                    faktura.setDailyBankRate(new bankDailyRate().getDailyRate());
+                    return "";
                 }
 
             };

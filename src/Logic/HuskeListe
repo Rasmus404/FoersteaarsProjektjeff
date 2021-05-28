@@ -1,21 +1,16 @@
-    LanneaftaleSkaerm
-ny asynkron tråd
-
-    OpretKoebSkaerm
-
-
-    Faktura
-(l.90) TodaysRate skal sættes i Constructor istedet, for at sætte loadtime ned og kaldes i CprService(Måske Rename)
+Igangværendeskærm videre knap fjernes.
+GodkendKoebPopUp SLET
+LaaneAftaleThread SLET
+LaneAftaleSkaerm thread update (opdateres når man skriver og ikke når man trykker ud af feltet)
 
 
 
-
-    IgangværendeSkærm
-igangværendeSkærm linje 51-57 lave en klasse "dialogBox" med en ja/nej knap som lambdaer til en metode
-linje 51-57 outliner hvad det ca skal ske (dialogboxklassen har en metode "godkend" og "idk(ikke godkend?)")
-som tager "selectedFaktura" som parameter som holder den faktura som er trykket på. hvis der trykkes godkend
-skal fakturarens boolean værdi "fakturaGodkendt" sættes til true
+Generelt slet alt der ikke bruges
 
 
-Mangel:
-Admin brug. igangværende (snakke om funktunaliteten som admin)
+
+
+Nice to have:
+BilListeSkaerm (Opdater knap (fjern eller lav funktionalitet))
+
+

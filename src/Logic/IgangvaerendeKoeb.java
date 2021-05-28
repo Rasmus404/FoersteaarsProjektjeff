@@ -2,11 +2,16 @@ package Logic;
 
 public class IgangvaerendeKoeb {
 
+
+
+    int faktura_id;
     String navn;
     String model;
     String startDato;
     boolean godkendt;
     String status;
+
+
 
     public String getNavn() {
         return navn;
