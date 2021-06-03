@@ -109,26 +109,6 @@ public class BilSkaerm extends GridPane {
             }
         });
 
-
-        Button update = new Button("Opdater");
-        Font updateSize = new Font(10);
-        update.setFont(updateSize);
-        this.add(update, 5, 2);
-
-        //----------------
-        update.setOnAction(e ->{
-            Dialog d = new Alert(Alert.AlertType.INFORMATION, String.valueOf(selectedIndex));
-            d.show();
-            bilListe.remove(selectedIndex);
-            bilListe.add(selectedIndex, new Bil(modelText.getText(), Double.parseDouble(modelText.getText())));
-            bilListe.add(selectedIndex, new Bil(prisText.getText(), Double.parseDouble(modelText.getText())));
-            modelText.clear();
-            prisText.clear();
-
-        });
-        //---------------
-
-
         Button delete = new Button("Slet bil");
         Font deleteSize = new Font(10);
         delete.setFont(deleteSize);

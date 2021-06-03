@@ -95,8 +95,7 @@ public class OpretKundeSkaerm extends GridPane {
 
 
         cprLabel = new Label();
-        this.add(cprLabel, 1,2);
-        cprLabel.setStyle("-fx-text-fill: white");
+        this.add(cprLabel, 1, 2);
 
 
         //telefon
@@ -146,7 +145,6 @@ public class OpretKundeSkaerm extends GridPane {
         leveringsadresse.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
                 "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
 
-//        this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 400;");
         this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 620;");
 
 
@@ -224,7 +222,8 @@ public class OpretKundeSkaerm extends GridPane {
         ) {
             errorOnFields();
             return false;
-        } else if (cprLabel.getText().equals("Kreditværdighed er: D") /*CreditRator.i().rate(this.cpr.getText()) == Rating.D*/) {
+        } else if (cprLabel.getText().equals("Kreditværdighed er: D")) {
+            cprLabel.setStyle("-fx-text-fill: yellow; -fx-font-size: 14px; -fx-font-weight: bold");
             warningOnRKI();
             return false;
         }
@@ -248,7 +247,8 @@ public class OpretKundeSkaerm extends GridPane {
             setOnSucceeded(new EventHandler<WorkerStateEvent>() {
                 @Override
                 public void handle(WorkerStateEvent event) {
-                     cprLabel.setText("Kreditværdighed er: " +  event.getSource().getValue().toString());
+                    cprLabel.setText("Kreditværdighed er: " + event.getSource().getValue().toString());
+                    cprLabel.setStyle("-fx-text-fill: yellow; -fx-font-size: 14px; -fx-font-weight: bold");
                 }
             });
         }

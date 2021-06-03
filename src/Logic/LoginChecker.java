@@ -10,7 +10,6 @@ public class LoginChecker {
         if ("Admin".equals(username) && "1234".equals(password)) {
             LoginChecker.isAdmin = true;
             LoginChecker.username = username;
-            System.out.println("du er logget ind som admin, admin status =" + isAdmin);
             return true;
 
         } else if ("123".equals(password)) {

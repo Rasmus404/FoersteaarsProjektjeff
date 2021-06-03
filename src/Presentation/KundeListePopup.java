@@ -50,8 +50,8 @@ public class KundeListePopup {
         kundeTable.getColumns().add(byColumn);
         kundeTable.setPrefSize(300, 250);
 
-        ObservableList<Kunde> kundeListe = FXCollections.observableArrayList(ListMediator.getKundeListe());
-        kundeTable.getItems().addAll(kundeListe);
+        ObservableList<Kunde> obsListe = FXCollections.observableArrayList(ListMediator.getKundeListe());
+        kundeTable.getItems().addAll(obsListe);
 
         kundeTable.setOnMouseClicked(e -> {
                     if (kundeTable.getSelectionModel().getSelectedItem() != null) {

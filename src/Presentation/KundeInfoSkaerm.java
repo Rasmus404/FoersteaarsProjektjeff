@@ -15,6 +15,7 @@ import javafx.scene.text.FontWeight;
 import Logic.Kunde;
 import java.sql.SQLException;
 
+//Rasmus og Oliver
 public class KundeInfoSkaerm extends GridPane {
     Kunde kunde;
 
@@ -105,9 +106,9 @@ public class KundeInfoSkaerm extends GridPane {
                 "-fx-text-fill: red;");
 
 
-        Model.setCellValueFactory(new PropertyValueFactory<>("model"));
-        Koebspris.setCellValueFactory(new PropertyValueFactory<>("bilPris"));
-        Koebsdato.setCellValueFactory(new PropertyValueFactory<>("koebsdato")); //ændres købsdato
+        model.setCellValueFactory(new PropertyValueFactory<>("model"));
+        koebspris.setCellValueFactory(new PropertyValueFactory<>("bilPris"));
+        koebsdato.setCellValueFactory(new PropertyValueFactory<>("dateFormated"));
 
         model.prefWidthProperty().bind(kundeHistorikTable.widthProperty().multiply(0.30));
         koebspris.prefWidthProperty().bind(kundeHistorikTable.widthProperty().multiply(0.30));

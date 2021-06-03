@@ -227,7 +227,7 @@ public class FakturaSkaerm extends GridPane {
                 "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
 
 
-
+//        Yusuf
         Button exportBtn = new Button("Export");
         this.add(exportBtn, 2, 10);
         exportBtn.setOnAction(e -> {
@@ -266,6 +266,8 @@ public class FakturaSkaerm extends GridPane {
             writer.close();
         }
     }
+
+    //Yusuf
 }
 
 
