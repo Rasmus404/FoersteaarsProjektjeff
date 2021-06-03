@@ -1,9 +1,8 @@
 package Logic;
 
 import Datalayer.Datalayer;
-
 import java.sql.SQLException;
-import java.text.DecimalFormat;
+
 
 public class Bil {
 
@@ -39,7 +38,7 @@ public class Bil {
         DL.addBil(this);
     }
 
-    public void deleteFromDatabase()throws SQLException {
+    public void deleteFromDatabase() throws SQLException {
         Datalayer DL = new Datalayer("FerrariDB");
         DL.deleteBil(this);
     }

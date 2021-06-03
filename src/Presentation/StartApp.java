@@ -10,7 +10,6 @@ public class StartApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-
         Scene scene = new Scene(new LoginSkaerm(stage));
         stage.setWidth(750);
         stage.setHeight(535);

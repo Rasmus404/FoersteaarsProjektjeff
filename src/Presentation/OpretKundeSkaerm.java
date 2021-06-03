@@ -1,8 +1,5 @@
 package Presentation;
 
-import Datalayer.CreditRator;
-import Datalayer.Rating;
-import Logic.bankDailyRate;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Service;
@@ -22,7 +19,7 @@ import javafx.scene.text.Text;
 import Logic.Kunde;
 
 
-public class OpretKoebSkaerm extends GridPane {
+public class OpretKundeSkaerm extends GridPane {
 
     Label errorLabel;
     Label cprLabel;
@@ -38,7 +35,7 @@ public class OpretKoebSkaerm extends GridPane {
 
 
 
-    public OpretKoebSkaerm() {
+    public OpretKundeSkaerm() {
 
 
         this.setAlignment(Pos.TOP_LEFT);
@@ -54,7 +51,7 @@ public class OpretKoebSkaerm extends GridPane {
         Text topLabel = new Text("Opret nyt køb");
         topLabel.setFill(Color.DARKRED);
         topLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 25));
-        this.add(topLabel, 0, 0,2,2);
+        this.add(topLabel, 0, 0, 2, 2);
 
 
         // Fornavn
@@ -70,11 +67,10 @@ public class OpretKoebSkaerm extends GridPane {
 
 
         kundeButton = new Button("Kunde Liste");
-        this.add(kundeButton,1,1);
+        this.add(kundeButton, 1, 1);
         kundeButton.setOnAction(e -> kundeListePopup = new KundeListePopup(this));
         kundeButton.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
                 "-fx-font-size: 13px; -fx-background-color: darkred");
-
 
 
         // cpr
@@ -133,14 +129,12 @@ public class OpretKoebSkaerm extends GridPane {
                 "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
 
 
-
         errorLabel = new Label();
         this.add(errorLabel, 2, 6);
         errorLabel.setTextFill(Color.WHITE);
         errorLabel.setAlignment(Pos.BASELINE_LEFT);
         errorLabel.setStyle("-fx-font-weight: bold;" +
                 "-fx-font-size: 13px;");
-
 
 
         //leveringsadresse
@@ -234,8 +228,9 @@ public class OpretKoebSkaerm extends GridPane {
         }
         return true;
     }
+
     private void kundeInit() {
-        if(kunde == null) {
+        if (kunde == null) {
             kunde = new Kunde();
         }
     }

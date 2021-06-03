@@ -3,8 +3,6 @@ package Presentation;
 import Logic.Kunde;
 import Logic.Faktura;
 import Logic.ListMediator;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -20,12 +18,10 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
-import java.util.Date;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -39,8 +35,7 @@ public class KvitteringSkaerm extends GridPane {
     DecimalFormat df;
     KvitteringSkaerm kvitteringSkaerm;
 
-
-    public KvitteringSkaerm(Kunde kunde, Faktura faktura) {
+    public FakturaSkaerm(Kunde kunde, Faktura faktura) {
 
         this.faktura = new Faktura(kunde);
         this.kunde = kunde;
@@ -55,7 +50,6 @@ public class KvitteringSkaerm extends GridPane {
         this.getColumnConstraints().add(new ColumnConstraints(150));
         this.getColumnConstraints().add(new ColumnConstraints(150));
         this.getColumnConstraints().add(new ColumnConstraints(260));
-
 
 
         Text topLabel = new Text("Kvittering");
@@ -75,14 +69,13 @@ public class KvitteringSkaerm extends GridPane {
 
 
         TextField nameLabel = new TextField("" + kunde.getNavn());
-        this.add(nameLabel,1,1);
+        this.add(nameLabel, 1, 1);
         nameLabel.setAlignment(Pos.BASELINE_CENTER);
         nameLabel.setDisable(true);
         nameLabel.setOpacity(1);
         nameLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         nameLabel.setStyle("-fx-text-fill: white;" +
                 "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
-
 
 
         Label adresse = new Label("Adresse: ");
@@ -93,7 +86,7 @@ public class KvitteringSkaerm extends GridPane {
 
 
         TextField adresseField = new TextField("" + kunde.getAdresse());
-        this.add(adresseField,1,2);
+        this.add(adresseField, 1, 2);
         adresseField.setAlignment(Pos.BASELINE_CENTER);
         adresseField.setDisable(true);
         adresseField.setOpacity(1);
@@ -109,15 +102,13 @@ public class KvitteringSkaerm extends GridPane {
 
 
         TextField tlfLabel = new TextField("" + kunde.getTlf());
-        this.add(tlfLabel,1,3);
+        this.add(tlfLabel, 1, 3);
         tlfLabel.setAlignment(Pos.BASELINE_CENTER);
         tlfLabel.setDisable(true);
         tlfLabel.setOpacity(1);
         tlfLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         tlfLabel.setStyle("-fx-text-fill: white;" +
                 "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
-
-
 
 
         Label model = new Label("Model: ");
@@ -128,13 +119,12 @@ public class KvitteringSkaerm extends GridPane {
 
 
         TextField modelLabel = new TextField("" + faktura.getModel());
-        this.add(modelLabel,1,4);
+        this.add(modelLabel, 1, 4);
         modelLabel.setAlignment(Pos.BASELINE_CENTER);
         modelLabel.setDisable(true);
         modelLabel.setOpacity(1);
         modelLabel.setStyle("-fx-text-fill: white;" +
                 "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
-
 
 
         Label cpr = new Label("CPR Nr: ");
@@ -145,15 +135,13 @@ public class KvitteringSkaerm extends GridPane {
 
 
         TextField cprLabel = new TextField("" + kunde.getCpr());
-        this.add(cprLabel,1,5);
+        this.add(cprLabel, 1, 5);
         cprLabel.setAlignment(Pos.BASELINE_CENTER);
         cprLabel.setDisable(true);
         cprLabel.setOpacity(1);
         cprLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         cprLabel.setStyle("-fx-text-fill: white;" +
                 "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
-
-
 
 
         Label leveringsadresse = new Label("Leveringsadresse: ");
@@ -164,13 +152,12 @@ public class KvitteringSkaerm extends GridPane {
 
 
         TextField laLabel = new TextField("" + kunde.getLeveringsadresse());
-        this.add(laLabel,1,6);
+        this.add(laLabel, 1, 6);
         laLabel.setAlignment(Pos.BASELINE_CENTER);
         laLabel.setDisable(true);
         laLabel.setOpacity(1);
         laLabel.setStyle("-fx-text-fill: white;" +
                 "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
-
 
 
         Label udbetalingsprocent = new Label("Udbetalingsprocent: ");
@@ -180,14 +167,13 @@ public class KvitteringSkaerm extends GridPane {
         udbetalingsprocent.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
 
-        TextField upLabel = new TextField( faktura.getUdbetalingsprocent() + "%");
-        this.add(upLabel,1,7);
+        TextField upLabel = new TextField(faktura.getUdbetalingsprocent() + "%");
+        this.add(upLabel, 1, 7);
         upLabel.setAlignment(Pos.BASELINE_CENTER);
         upLabel.setDisable(true);
         upLabel.setOpacity(1);
         upLabel.setStyle("-fx-text-fill: white;" +
                 "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
-
 
 
         Label rentesats = new Label("Rentesats: ");
@@ -198,7 +184,7 @@ public class KvitteringSkaerm extends GridPane {
 
 
         TextField rentesatsLabel = new TextField(df.format(100 * faktura.getRentesats()) + "%");
-        this.add(rentesatsLabel,1,8);
+        this.add(rentesatsLabel, 1, 8);
         rentesatsLabel.setAlignment(Pos.BASELINE_CENTER);
         rentesatsLabel.setDisable(true);
         rentesatsLabel.setOpacity(1);
@@ -207,16 +193,15 @@ public class KvitteringSkaerm extends GridPane {
                 "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
 
 
-
         Label totalPris = new Label("Total Pris: ");
-        this.add(totalPris, 0 , 9);
+        this.add(totalPris, 0, 9);
         totalPris.setAlignment(Pos.BASELINE_CENTER);
         totalPris.setTextFill(Color.web("Darkred"));
         totalPris.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
 
         TextField tpLabel = new TextField(df.format(faktura.getTotalPris()));
-        this.add(tpLabel,1,9);
+        this.add(tpLabel, 1, 9);
         tpLabel.setAlignment(Pos.BASELINE_CENTER);
         tpLabel.setDisable(true);
         tpLabel.setOpacity(1);
@@ -256,13 +241,13 @@ public class KvitteringSkaerm extends GridPane {
             }
         });
     }
-//             File file = new File("C:\\Users\\kongr\\IdeaProjects\\Første Års Projekt");
+
     public void exportCsv() throws Exception {
         Writer writer = null;
         Stage stage = new Stage();
         try {
             FileChooser fc = new FileChooser();
-            fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("*csv","*"));
+            fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("*csv", "*"));
             fc.setTitle("Gem som");
             File file = fc.showSaveDialog(stage);
             writer = new BufferedWriter(new FileWriter(file));
@@ -275,8 +260,7 @@ public class KvitteringSkaerm extends GridPane {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
-        finally {
+        } finally {
 
             writer.flush();
             writer.close();

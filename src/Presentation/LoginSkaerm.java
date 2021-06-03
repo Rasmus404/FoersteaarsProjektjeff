@@ -1,6 +1,5 @@
 package Presentation;
 
-import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,7 +8,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -29,7 +27,7 @@ public class LoginSkaerm extends StackPane{
     Stage stage;
 
 
-    public LoginSkaerm(Stage previousStage){
+    public LoginSkaerm(Stage previousStage) {
         this.stage = previousStage;
 
         grid = new GridPane();
@@ -59,12 +57,10 @@ public class LoginSkaerm extends StackPane{
                 "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: white");
 
 
-
         Label lblPassword = new Label("Adgangskode:");
         grid.add(lblPassword, 0, 2);
         lblPassword.setFont(Font.font("Tahoma", FontWeight.BOLD, 15));
         lblPassword.setTextFill(Color.web("#FFFFFF"));
-
 
 
         passField = new PasswordField();
@@ -74,13 +70,12 @@ public class LoginSkaerm extends StackPane{
                 "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: white");
 
 
-
         Button loginBtn = new Button("Login");
         grid.add(loginBtn, 1, 3);
         loginBtn.setStyle("-fx-background-color: #ff2800; ");
         loginBtn.setFont(Font.font("Tahoma", FontWeight.LIGHT, 13));
         loginBtn.setTextFill(Color.WHITE);
-        loginBtn.setOnAction(e-> {
+        loginBtn.setOnAction(e -> {
             newScene(LoginChecker.loginChecker(userField.getText(), passField.getText()), new Stage());
         });
         loginBtn.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
@@ -88,7 +83,7 @@ public class LoginSkaerm extends StackPane{
 
 
         wrongPWLabel = new Label();
-        grid.add(wrongPWLabel, 1,4);
+        grid.add(wrongPWLabel, 1, 4);
         wrongPWLabel.setTextFill(Color.web("#FF0000"));
         grid.setStyle("-fx-padding: 10;" +
                 "-fx-border-style: solid inside;" +
@@ -103,12 +98,11 @@ public class LoginSkaerm extends StackPane{
         this.getChildren().addAll(image, grid);
 
 
-
-
     }
+
     private void newScene(Boolean loginStatus, Stage nextStage) {
 
-        if(loginStatus) {
+        if (loginStatus) {
             Scene scene = new Scene(new StartSkaerm(nextStage));
             nextStage.setScene(scene);
             nextStage.show();

@@ -1,11 +1,8 @@
 package Presentation;
 
 import Logic.Bil;
-import Logic.Kunde;
 import Logic.ListMediator;
-import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -19,9 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -33,7 +28,7 @@ public class BilListeSkaerm extends GridPane {
     public ObservableList<Bil> bilListe = FXCollections.observableArrayList(ListMediator.getBilListe());
     public int selectedIndex = -1;
 
-    public BilListeSkaerm() {
+    public BilSkaerm() {
 
         this.setHgap(10);
         this.setVgap(3);
@@ -55,8 +50,6 @@ public class BilListeSkaerm extends GridPane {
         this.add(errorLabel, 4, 0, 2, 1);
 
 
-
-        //evt. tilføj flere(nice to have)
         TableView<Bil> bilTable = new TableView<Bil>();
         TableColumn navnColumn = new TableColumn("Model");
         TableColumn prisColumn = new TableColumn("Pris");

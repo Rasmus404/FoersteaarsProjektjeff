@@ -1,6 +1,7 @@
 package Presentation;
 
 import javafx.scene.*;
+
 import java.util.Stack;
 
 import javafx.scene.image.Image;
@@ -12,13 +13,13 @@ public class StartSkaermController {
     private static StartSkaermController inst = null;
 
     public static StartSkaermController i() {
-        if(inst == null)
+        if (inst == null)
             inst = new StartSkaermController();
 
         return inst;
     }
 
-    private StartSkaermController(){
+    private StartSkaermController() {
     }
 
     public void setStartSkaerm(StartSkaerm startSkaerm) {
@@ -29,13 +30,14 @@ public class StartSkaermController {
         startSkaerm.setCenter(focus);
     }
 
-    public void pushNode(Node focus){
-        if(stack.empty()) {
+    public void pushNode(Node focus) {
+        if (stack.empty()) {
             startSkaerm.tilbage.setText("Tilbage");
         }
         stack.push(startSkaerm.getCenter());
         setFocus(focus);
     }
+
     public void popNode() {
         if (stack.empty()) {
 
@@ -58,6 +60,7 @@ public class StartSkaermController {
             }
         }
     }
+
     public void clearAndStartNew(Node focus) {
         startSkaerm.setCenter(focus);
         stack.clear();

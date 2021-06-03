@@ -1,10 +1,12 @@
 package Logic;
+
 import Datalayer.Datalayer;
 import Datalayer.CreditRator;
 import java.sql.SQLException;
 
 //Victor
 public class Kunde {
+
     int kunde_id;
     //int laan_id;
     String navn = "";

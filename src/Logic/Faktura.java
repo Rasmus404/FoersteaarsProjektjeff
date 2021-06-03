@@ -1,10 +1,6 @@
 package Logic;
 import Datalayer.Datalayer;
-import javax.xml.crypto.Data;
 import java.util.Date;
-import Datalayer.InterestRate;
-import Datalayer.Rating;
-import Datalayer.CreditRator;
 import java.sql.SQLException;
 
 //Victor
@@ -187,7 +183,7 @@ public class Faktura {
         return faktura_id;
     }
 
-    public void setFakturaGodkendt(boolean fakturaGodkendt){
+    public void setFakturaGodkendt(boolean fakturaGodkendt) {
         this.fakturaGodkendt = fakturaGodkendt;
     }
 
@@ -199,7 +195,7 @@ public class Faktura {
         }
     }
 
-    public boolean isFakturaGodkendt(){
+    public boolean isFakturaGodkendt() {
         return fakturaGodkendt;
     }
 
@@ -214,7 +210,6 @@ public class Faktura {
     public void setKoebsdato(Date koebsdato) {
         this.koebsdato = koebsdato;
     }
-
 
 
     @Override

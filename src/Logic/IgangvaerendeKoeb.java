@@ -2,16 +2,12 @@ package Logic;
 
 public class IgangvaerendeKoeb {
 
-
-
     int faktura_id;
     String navn;
     String model;
     String startDato;
     boolean godkendt;
     String status;
-
-
 
     public String getNavn() {
         return navn;
@@ -45,11 +41,10 @@ public class IgangvaerendeKoeb {
         this.godkendt = godkendt;
     }
 
-    public void setStatus(boolean godkendt){
-        if(godkendt){
+    public void setStatus(boolean godkendt) {
+        if (godkendt) {
             status = "Godkendt";
-        }
-        else {
+        } else {
             status = "Mangler Godkendelse";
         }
     }
@@ -62,7 +57,7 @@ public class IgangvaerendeKoeb {
         this.faktura_id = faktura_id;
     }
 
-    public String getStatus(){
+    public String getStatus() {
         return status;
     }
 

@@ -1,7 +1,6 @@
 package Presentation;
 
 import Logic.IgangvaerendeKoeb;
-import Logic.Kunde;
 import Logic.ListMediator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,7 +54,7 @@ public class IgangværendeSkaerm extends GridPane {
         TableColumn<IgangvaerendeKoeb, String> datoColumn = new TableColumn("Start dato");
         TableColumn<IgangvaerendeKoeb, String> statusColumn = new TableColumn("Status");
 
-        kundeTable.setStyle("-fx-selection-bar: red; -fx-selection-bar-non-focused: salmon; -fx-background-color: darkred; " +
+        igangvaerendeTable.setStyle("-fx-selection-bar: red; -fx-selection-bar-non-focused: salmon; -fx-background-color: darkred; " +
                 "-fx-text-fill: red;");
 
         navnColumn.setCellValueFactory(new PropertyValueFactory<>("navn"));
@@ -68,19 +67,19 @@ public class IgangværendeSkaerm extends GridPane {
         statusColumn.setStyle("-fx-alignment: CENTER;");
 
 
-        navnColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.23));
-        bilColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.23));
-        datoColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.23));
-        statusColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.23));  //
-        kundeTable.getColumns().add(navnColumn);
-        kundeTable.getColumns().add(bilColumn);
-        kundeTable.getColumns().add(datoColumn);
-        kundeTable.getColumns().add(statusColumn);
-        kundeTable.setPrefSize(560, 450);
+        navnColumn.prefWidthProperty().bind(igangvaerendeTable.widthProperty().multiply(0.23));
+        bilColumn.prefWidthProperty().bind(igangvaerendeTable.widthProperty().multiply(0.23));
+        datoColumn.prefWidthProperty().bind(igangvaerendeTable.widthProperty().multiply(0.23));
+        statusColumn.prefWidthProperty().bind(igangvaerendeTable.widthProperty().multiply(0.23));
+        igangvaerendeTable.getColumns().add(navnColumn);
+        igangvaerendeTable.getColumns().add(bilColumn);
+        igangvaerendeTable.getColumns().add(datoColumn);
+        igangvaerendeTable.getColumns().add(statusColumn);
+        igangvaerendeTable.setPrefSize(560, 450);
 
         ObservableList<IgangvaerendeKoeb> obsListe = FXCollections.observableArrayList(ListMediator.getIgangværendeKoebs());
-        kundeTable.getItems().addAll(obsListe);
-        this.add(kundeTable, 0, 2, 3, 1);
+        igangvaerendeTable.getItems().addAll(obsListe);
+        this.add(igangvaerendeTable, 0, 2, 3, 1);
 
 //
 
@@ -91,12 +90,12 @@ public class IgangværendeSkaerm extends GridPane {
             Button godkendButton = new Button("Godkend");
             this.add(godkendButton, 2, 1);
             godkendButton.setOnAction(e -> {
-                if (kundeTable.getSelectionModel().getSelectedItem() != null) {
-                    selectedFaktura = ListMediator.getFakturaById(kundeTable.getSelectionModel().getSelectedItem().getFaktura_id()).get(0);
+                if (igangvaerendeTable.getSelectionModel().getSelectedItem() != null) {
+                    selectedFaktura = ListMediator.getFakturaById(igangvaerendeTable.getSelectionModel().getSelectedItem().getFaktura_id()).get(0);
                     selectedFaktura.setFakturaGodkendt(true);
-                    try{
+                    try {
                         selectedFaktura.updateFakturaGodkendelseInDatabase();
-                    } catch (SQLException ex){
+                    } catch (SQLException ex) {
                     }
                     StartSkaermController.i().clearAndStartNew(new IgangværendeSkaerm());
                 }
@@ -110,30 +109,30 @@ public class IgangværendeSkaerm extends GridPane {
             choiceBox.getItems().addAll("Navn", "Bil model", "Start dato", "Status");
             choiceBox.setValue("Navn"); //det den starter med
 
-            TextField soegefelt = new TextField();
-            soegefelt.setPromptText("Søgefelt");
-            this.add(soegefelt, 0, 1);
-            soegefelt.setAlignment(Pos.TOP_LEFT);
-            soegefelt.textProperty().addListener((obs, oldValue, newValue) -> {
-                switch (choiceBox.getValue()) {
+        TextField soegefelt = new TextField();
+        soegefelt.setPromptText("Søgefelt");
+        this.add(soegefelt, 0, 1);
+        soegefelt.setAlignment(Pos.TOP_LEFT);
+        soegefelt.textProperty().addListener((obs, oldValue, newValue) -> {
+            switch (choiceBox.getValue()) {
 
-                    case "Navn":
-                        flKunde.setPredicate(p -> p.getNavn().toLowerCase().contains(newValue.toLowerCase().trim()));
-                        break;
+                case "Navn":
+                    filteredList.setPredicate(p -> p.getNavn().toLowerCase().contains(newValue.toLowerCase().trim()));
+                    break;
 
-                    case "Bil model":
-                        flKunde.setPredicate(p -> p.getModel().toLowerCase().contains(newValue.toLowerCase().trim()));
-                        break;
+                case "Bil model":
+                    filteredList.setPredicate(p -> p.getModel().toLowerCase().contains(newValue.toLowerCase().trim()));
+                    break;
 
-                    case "Start dato":
-                        flKunde.setPredicate(p -> p.getStartDato().toLowerCase().contains(newValue.toLowerCase().trim()));
-                        break;
+                case "Start dato":
+                    filteredList.setPredicate(p -> p.getStartDato().toLowerCase().contains(newValue.toLowerCase().trim()));
+                    break;
 
-                    case "Status":
-                        flKunde.setPredicate(p -> p.getStatus().toLowerCase().contains(newValue.toLowerCase().trim()));
-                        break;
-                }
-            });
+                case "Status":
+                    filteredList.setPredicate(p -> p.getStatus().toLowerCase().contains(newValue.toLowerCase().trim()));
+                    break;
+            }
+        });
 
             choiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)
                     -> {//resetter vores table og textfield når noget nyt er selected

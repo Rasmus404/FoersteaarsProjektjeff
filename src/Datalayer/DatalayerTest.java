@@ -82,27 +82,4 @@ class DatalayerTest {
     }
 
 
-
-    @Test
-    void deleteFaktura() {
-        Faktura fakturaVar = dl.getFakturaListByCondition("faktura_id =" + faktura.getFaktura_id()).get(0);
-        dl.deleteFaktura(faktura);
-        assertNotEquals(fakturaVar.getFaktura_id(), dl.getFakturaListByCondition("faktura_id =" + faktura.getFaktura_id()).get(0).getFaktura_id());
-    }
-
-    @Test
-    void deleteKunde() {
-        Kunde kundeVar = dl.getKundeListByCondition("kunde_id =" + kunde.getKunde_id()).get(0);
-        dl.deleteKunde(kunde);
-        assertNotEquals(kundeVar.getKunde_id(), dl.getKundeListByCondition("kunde_id =" + kunde.getKunde_id()).get(0).getKunde_id());
-    }
-
-
-
-    @Test
-    void deleteBil() {
-        Bil bilVar = dl.getBilListByCondition("bil_navn =" + bil.getBilNavn()).get(0);
-        dl.deleteBil(bil);
-        assertNotEquals(bilVar.getBilNavn(), dl.getBilListByCondition("bil_navn =" + bil.getBilNavn()).get(0).getBilNavn());
-    }
 }

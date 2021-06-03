@@ -3,8 +3,6 @@ package Presentation;
 import Logic.Kunde;
 import Logic.Faktura;
 import Logic.ListMediator;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -18,21 +16,23 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
-
-
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
-public class FakturaGodkendelse extends GridPane {
+//Yusuf og Oliver
+public class FakturaGodkendelsesSkaerm extends GridPane {
 
     Kunde kunde;
     Faktura faktura;
     DatePicker dp;
 
-    public FakturaGodkendelse (Kunde kunde, Faktura faktura) {
+    public FakturaGodkendelsesSkaerm(Kunde kunde, Faktura faktura) {
 
         this.kunde = kunde;
         this.faktura = faktura;
@@ -49,7 +49,7 @@ public class FakturaGodkendelse extends GridPane {
 
         Text topLabel = new Text("Godkendelse af Faktura: - " + kunde.getNavn());
         topLabel.setFont(Font.font("Tahoma", FontWeight.NORMAL, 25));
-        this.add(topLabel, 0, 0,2,2);
+        this.add(topLabel, 0, 0, 2, 2);
         topLabel.setFill(Color.DARKRED);
 
         // model
@@ -77,9 +77,9 @@ public class FakturaGodkendelse extends GridPane {
         bilPris.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
         TextField bilPrisField = new TextField("" + faktura.getBilPris());
-        this.add(bilPrisField,1,2);
+        this.add(bilPrisField, 1, 2);
         bilPrisField.setAlignment(Pos.BASELINE_CENTER);
-        bilPrisField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
+        bilPrisField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         bilPrisField.setDisable(true);
         bilPrisField.setOpacity(1);
         bilPrisField.setStyle("-fx-text-fill: white;" +
@@ -93,9 +93,9 @@ public class FakturaGodkendelse extends GridPane {
         udbetalingsprocent.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
         TextField ubField = new TextField("" + faktura.getUdbetalingsprocent());
-        this.add(ubField,1,3);
+        this.add(ubField, 1, 3);
         ubField.setAlignment(Pos.BASELINE_CENTER);
-        ubField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
+        ubField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         ubField.setDisable(true);
         ubField.setOpacity(1);
         ubField.setOpacity(1);
@@ -107,19 +107,18 @@ public class FakturaGodkendelse extends GridPane {
         Label loebetid = new Label("Løbetid:");
         this.add(loebetid, 0, 4);
         loebetid.setAlignment(Pos.BASELINE_CENTER);
-        loebetid.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
+        loebetid.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         loebetid.setTextFill(Color.web("darkred"));
         loebetid.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
         TextField loebetidField = new TextField("" + faktura.getLoebetid());
-        this.add(loebetidField,1,4);
+        this.add(loebetidField, 1, 4);
         loebetidField.setAlignment(Pos.BASELINE_CENTER);
-        loebetidField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
+        loebetidField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         loebetidField.setDisable(true);
         loebetidField.setOpacity(1);
         loebetidField.setStyle("-fx-text-fill: white;" +
                 "-fx-prompt-text-fill: white; -fx-background-color: darkred");
-
 
 
         //rentesats
@@ -130,10 +129,10 @@ public class FakturaGodkendelse extends GridPane {
         rentesats.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
 
-        TextField renteField = new TextField("" + faktura.calcRentesats( )); //Har bare gjort den til 10 så der ikke opstår nogen fejl
-        this.add(renteField,1,5);
+        TextField renteField = new TextField(df.format(100 * faktura.getRentesats()) + "%");
+        this.add(renteField, 1, 5);
         renteField.setAlignment(Pos.BASELINE_CENTER);
-        renteField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
+        renteField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         renteField.setDisable(true);
         renteField.setOpacity(1);
         renteField.setStyle("-fx-text-fill: white;" +
@@ -150,7 +149,7 @@ public class FakturaGodkendelse extends GridPane {
         TextField mdrUdbetalingField = new TextField("" + faktura.getMdrUdbetaling());
         this.add(mdrUdbetalingField,1,6);
         mdrUdbetalingField.setAlignment(Pos.BASELINE_CENTER);
-        mdrUdbetalingField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
+        mdrUdbetalingField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         mdrUdbetalingField.setDisable(true);
         mdrUdbetalingField.setOpacity(1);
         mdrUdbetalingField.setStyle("-fx-text-fill: white;" +
@@ -166,15 +165,13 @@ public class FakturaGodkendelse extends GridPane {
         TextField prisField = new TextField("" + faktura.getTotalPris());
         this.add(prisField,1,7);
         prisField.setAlignment(Pos.BASELINE_CENTER);
-        prisField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
+        prisField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         prisField.setDisable(true);
         prisField.setOpacity(1);
         prisField.setStyle("-fx-text-fill: white;" +
                 "-fx-prompt-text-fill: white; -fx-background-color: darkred");
 
         this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 620;");
-
-
 
 
         //Dato
@@ -194,7 +191,7 @@ public class FakturaGodkendelse extends GridPane {
         dp.setValue(LocalDate.now());
         dp.getEditor().clear();
         dp.setValue(null);
-        this.add(dp,1,8);
+        this.add(dp, 1, 8);
 
         Button confirmBtn = new Button("Godkend");
         Font NBSize = new Font(15);
@@ -237,7 +234,7 @@ public class FakturaGodkendelse extends GridPane {
     public Kunde kundeExists(Kunde kunde) {
 
         ArrayList<Kunde> kundeList = ListMediator.getKundeListe();
-        if(kundeList != null) {
+        if (kundeList != null) {
             for (Kunde kundeVar : kundeList) {
                 if (kunde.getNavn().equals(kundeVar.getNavn()) && kunde.getCpr().equals(kundeVar.getCpr())) {
                     return kundeVar;

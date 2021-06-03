@@ -1,7 +1,6 @@
 package Logic;
 
 import Datalayer.Datalayer;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -45,10 +44,11 @@ public class ListMediator {
         }
         return fakturas;
     }
+
     public static ArrayList<Faktura> getFakturaById(int id) {
         ArrayList<Faktura> fakturas = new ArrayList<>();
         try {
-            fakturas = getFakturasByCondition("faktura_id =" + id );
+            fakturas = getFakturasByCondition("faktura_id =" + id);
         } catch (SQLException e) {
         }
         return fakturas;

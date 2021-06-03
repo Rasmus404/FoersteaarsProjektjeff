@@ -3,8 +3,6 @@ package Presentation;
 import Logic.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
@@ -19,7 +17,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
@@ -34,7 +31,7 @@ public class LaaneaftaleSkaerm extends GridPane {
     TextField prisField;
     TextField renteField;
     TextField mdrUdbetalingField;
-    LaaneaftaleComboBox modelValg;
+    BilerComboBox modelValg;
     DecimalFormat df;
 
 
@@ -56,7 +53,7 @@ public class LaaneaftaleSkaerm extends GridPane {
 
         Text topLabel = new Text("Rente Aftale - " + kunde.getNavn());
         topLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 25));
-        this.add(topLabel, 0, 0,2,2);
+        this.add(topLabel, 0, 0, 2, 2);
         topLabel.setFill(Color.DARKRED);
 
 
@@ -69,7 +66,7 @@ public class LaaneaftaleSkaerm extends GridPane {
         model.setStyle("-fx-text-fill: darkred;");
 
 
-        modelValg = new LaaneaftaleComboBox(ListMediator.getBilListe());
+        modelValg = new BilerComboBox(ListMediator.getBilListe());
         modelValg.setMinWidth(150);
         modelValg.setEditable(false);
 
@@ -82,7 +79,7 @@ public class LaaneaftaleSkaerm extends GridPane {
         modelValg.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-                if(newValue != null) {
+                if (newValue != null) {
                     updateCarValue();
                 }
             }
@@ -98,16 +95,13 @@ public class LaaneaftaleSkaerm extends GridPane {
 
 
         bilPrisField = new TextField();
-        this.add(bilPrisField,1,2);
+        this.add(bilPrisField, 1, 2);
         bilPrisField.setAlignment(Pos.BASELINE_CENTER);
-        bilPrisField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
+        bilPrisField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         bilPrisField.setDisable(true);
         bilPrisField.setOpacity(1);
         bilPrisField.setStyle("-fx-text-fill: white;" +
                 " -fx-background-color: darkred");
-
-
-
 
 
         //udbetalingsprocent
@@ -119,9 +113,9 @@ public class LaaneaftaleSkaerm extends GridPane {
 
 
         udbetalingsProcentField = new TextField();
-        this.add(udbetalingsProcentField,1,3);
+        this.add(udbetalingsProcentField, 1, 3);
         udbetalingsProcentField.setAlignment(Pos.BASELINE_CENTER);
-        udbetalingsProcentField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
+        udbetalingsProcentField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         udbetalingsProcentField.setDisable(false);
         udbetalingsProcentField.setStyle("-fx-text-fill: white;" +
                 " -fx-background-color: #da614e");
@@ -138,7 +132,6 @@ public class LaaneaftaleSkaerm extends GridPane {
         });
         // ----changeListener() -- notify(fakturaValueListener) ----
 
-
         //løbetid
         Label loebetid = new Label("Løbetid:");
         this.add(loebetid, 0, 4);
@@ -148,9 +141,9 @@ public class LaaneaftaleSkaerm extends GridPane {
 
 
         loebetidField = new TextField();
-        this.add(loebetidField,1,4);
+        this.add(loebetidField, 1, 4);
         loebetidField.setAlignment(Pos.BASELINE_CENTER);
-        loebetidField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
+        loebetidField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         loebetidField.setDisable(false);
         loebetidField.setStyle("-fx-text-fill: white;" +
                 " -fx-background-color: #da614e");
@@ -167,7 +160,6 @@ public class LaaneaftaleSkaerm extends GridPane {
         });
         // ----changeListener() -- notify(fakturaValueListener) ----
 
-
         //rentesats
         Label rentesats = new Label("Rentesats");
         this.add(rentesats, 0, 5);
@@ -177,8 +169,8 @@ public class LaaneaftaleSkaerm extends GridPane {
 
 
         renteField = new TextField();
-        this.add(renteField,1,5);
-        renteField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
+        this.add(renteField, 1, 5);
+        renteField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         renteField.setAlignment(Pos.BASELINE_CENTER);
         renteField.setDisable(true);
         renteField.setOpacity(1);
@@ -195,9 +187,9 @@ public class LaaneaftaleSkaerm extends GridPane {
 
 
         mdrUdbetalingField = new TextField();
-        this.add(mdrUdbetalingField,1,6);
+        this.add(mdrUdbetalingField, 1, 6);
         mdrUdbetalingField.setAlignment(Pos.BASELINE_CENTER);
-        mdrUdbetalingField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
+        mdrUdbetalingField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         mdrUdbetalingField.setDisable(true);
         mdrUdbetalingField.setOpacity(1);
         mdrUdbetalingField.setStyle("-fx-text-fill: white;" +
@@ -212,16 +204,14 @@ public class LaaneaftaleSkaerm extends GridPane {
         totalpris.setStyle("-fx-text-fill: darkred;");
 
 
-
         prisField = new TextField();
-        this.add(prisField,1,7);
+        this.add(prisField, 1, 7);
         prisField.setAlignment(Pos.BASELINE_CENTER);
-        prisField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD,13));
+        prisField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         prisField.setDisable(true);
         prisField.setOpacity(1);
         prisField.setStyle("-fx-text-fill: white;" +
                 " -fx-background-color: darkred");
-
 
 
         Button nextButton = new Button("Videre");
@@ -241,11 +231,12 @@ public class LaaneaftaleSkaerm extends GridPane {
 
 
     }
+
     public void updateValues() {
         faktura.setLoebetid(Double.parseDouble(loebetidField.getText()));
         faktura.setUdbetalingsprocent(Double.parseDouble(udbetalingsProcentField.getText()));
         faktura.calcRentesats();
-        renteField.setText(df.format( 100 *  faktura.calcRentesats()) + "%");
+        renteField.setText(df.format(100 * faktura.calcRentesats()) + "%");
         mdrUdbetalingField.setText(df.format(faktura.getMdrUdbetaling()));
         prisField.setText(df.format(faktura.getTotalPris()));
     }
@@ -258,6 +249,7 @@ public class LaaneaftaleSkaerm extends GridPane {
         return(modelValg.getValue() == null); // -----changeListener() -- laaneaftaleSkaerm.updateCarValue(); -----
 
     }
+
     public void updateCarValue() {
         faktura.setModel(modelValg.getBilNavn());
         faktura.setBilPris(modelValg.getBilPris());
@@ -279,7 +271,7 @@ public class LaaneaftaleSkaerm extends GridPane {
             return new Task<String>() {
                 @Override
                 protected String call() throws InterruptedException {
-                    faktura.setDailyBankRate(new bankDailyRate().getDailyRate());
+                    faktura.setDailyBankRate(new BankDailyRate().getDailyRate());
                     return "";
                 }
 

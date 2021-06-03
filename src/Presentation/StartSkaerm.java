@@ -3,22 +3,16 @@ package Presentation;
 import Logic.LoginChecker;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
-import java.awt.event.MouseEvent;
-import java.util.Stack;
 
 
 public class StartSkaerm extends BorderPane{
@@ -38,22 +32,21 @@ public class StartSkaerm extends BorderPane{
         StartSkaermController.i().setStartSkaerm(this);
 
         leftBorder = new VBox();
-        leftBorder.setPrefWidth(750/ 4);
+        leftBorder.setPrefWidth(750 / 4);
         leftBorder.setStyle("-fx-background-color: #8B0000");
         leftBorder.setAlignment(Pos.TOP_CENTER);
         leftBorder.setPadding(new Insets(5, 5, 5, 5));
         leftBorder.setSpacing(20);
 
 
-
         opret = new Button("Opret");
-        opret.setOnAction(e -> StartSkaermController.i().pushNode(new OpretKoebSkaerm()));
+        opret.setOnAction(e -> StartSkaermController.i().pushNode(new OpretKundeSkaerm()));
         opret.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
                 "-fx-font-size: 12px; -fx-background-color: black");
 
 
-        kunde = new Button("Kunde");
-        kunde.setOnAction(e -> StartSkaermController.i().pushNode(new KundeSkaerm()));
+        kunde = new Button("Kunder");
+        kunde.setOnAction(e -> StartSkaermController.i().pushNode(new KunderSkaerm()));
         kunde.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
                 "-fx-font-size: 12px; -fx-background-color: black");
 
@@ -65,7 +58,7 @@ public class StartSkaerm extends BorderPane{
 
 
         bilListe = new Button("Bil Liste");
-        bilListe.setOnAction(e -> StartSkaermController.i().pushNode(new BilListeSkaerm()));
+        bilListe.setOnAction(e -> StartSkaermController.i().pushNode(new BilSkaerm()));
         bilListe.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
                 "-fx-font-size: 12px; -fx-background-color: black");
 

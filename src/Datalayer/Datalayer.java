@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
+//Rasmus og Victor
 public class Datalayer {
 
 
@@ -20,7 +21,7 @@ public class Datalayer {
         openConnection(databaseName);
     }
 
-     static boolean loadJdbcDriver() {
+    static boolean loadJdbcDriver() {
         try {
             //System.out.println("Loading JDBC driver...");
 
@@ -35,7 +36,7 @@ public class Datalayer {
         }
     }
 
-     static boolean openConnection(String databaseName) {
+    static boolean openConnection(String databaseName) {
         String connectionString =
                 "jdbc:sqlserver://localhost:1433;" +
                         "instanceName=SQLEXPRESS;" +
@@ -146,9 +147,7 @@ public class Datalayer {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
-            // iteration starter 'before first'
             while (resultSet.next()) {
-                // hent data fra denne række
                 Kunde kunde = new Kunde();
                 kunde.setKunde_id(resultSet.getInt("kunde_id"));
                 kunde.setNavn(resultSet.getString("navn"));
@@ -175,9 +174,9 @@ public class Datalayer {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
-            // iteration starter 'before first'
+
             while (resultSet.next()) {
-                // hent data fra denne række
+
                 Faktura faktura = new Faktura();
                 faktura.setFaktura_id(resultSet.getInt("faktura_id"));
                 faktura.setFakturaGodkendt(resultSet.getBoolean("faktura_godkendt"));
@@ -208,9 +207,9 @@ public class Datalayer {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
-            // iteration starter 'before first'
+
             while (resultSet.next()) {
-                // hent data fra denne række
+
                 Bil bil = new Bil(resultSet.getString("bil_navn"), Double.parseDouble(resultSet.getString("bilpris")));
                 biler.add(bil);
             }
@@ -220,6 +219,8 @@ public class Datalayer {
 
         return biler;
     }
+
+    //Update
     public void updateFakturaGodkendelse(Faktura faktura) {
         try {
             String sql = "UPDATE Faktura SET faktura_godkendt= '" + faktura.isFakturaGodkendt() +
@@ -229,12 +230,10 @@ public class Datalayer {
 
             int affectedRows = statement.executeUpdate(sql);
 
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
 
 
     //Delete
@@ -243,9 +242,9 @@ public class Datalayer {
 
         try {
             String sql = "DELETE FROM kunde WHERE kunde_id='" + kunde.getKunde_id() + "';";
-            // get statement object
+
             Statement statement = connection.createStatement();
-            // execute sql statement
+
             int affectedRows = statement.executeUpdate(sql);
 
             ResultSet resultSet = statement.executeQuery("SELECT SCOPE_IDENTITY()");
@@ -255,42 +254,41 @@ public class Datalayer {
 
         }
     }
-        public void deleteFaktura(Faktura faktura){
-            try {
-                String sql = "DELETE FROM Faktura WHERE faktura_id='" + faktura.getFaktura_id() + "';";
-                // get statement object
-                Statement statement = connection.createStatement();
-                // execute sql statement
-                int affectedRows = statement.executeUpdate(sql);
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    public void deleteFaktura(Faktura faktura) {
+        try {
+            String sql = "DELETE FROM Faktura WHERE faktura_id='" + faktura.getFaktura_id() + "';";
+            Statement statement = connection.createStatement();
+            int affectedRows = statement.executeUpdate(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        public void deleteFakturaByKunde(Kunde kunde) {
-            try {
-                String sql = "DELETE FROM Faktura WHERE kunde_id='" + kunde.getKunde_id() + "';";
-                // get statement object
-                Statement statement = connection.createStatement();
-                // execute sql statement
-                int affectedRows = statement.executeUpdate(sql);
+    }
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    public void deleteFakturaByKunde(Kunde kunde) {
+        try {
+            String sql = "DELETE FROM Faktura WHERE kunde_id='" + kunde.getKunde_id() + "';";
+            Statement statement = connection.createStatement();
+            int affectedRows = statement.executeUpdate(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-            public void deleteBil(Bil bil){
-                try {
-                    String sql = "DELETE FROM Bil WHERE bil_navn='" + bil.getBilNavn() + "';";
-                    // get statement object
-                    Statement statement = connection.createStatement();
-                    // execute sql statement
-                    int affectedRows = statement.executeUpdate(sql);
+    }
 
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+    public void deleteBil(Bil bil) {
+        try {
+            String sql = "DELETE FROM Bil WHERE bil_navn='" + bil.getBilNavn() + "';";
+
+            Statement statement = connection.createStatement();
+
+            int affectedRows = statement.executeUpdate(sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
 

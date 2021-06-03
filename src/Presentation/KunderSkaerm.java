@@ -2,7 +2,6 @@ package Presentation;
 
 import Logic.Kunde;
 import Logic.ListMediator;
-import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -18,14 +17,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
 ///*
 
-public class KundeSkaerm extends GridPane {
+public class KunderSkaerm extends GridPane {
 
-    public KundeSkaerm() {
+    public KunderSkaerm() {
 
         this.setHgap(20);
         this.setVgap(3);
@@ -37,7 +33,7 @@ public class KundeSkaerm extends GridPane {
         Text topLabel = new Text("Kunde");
         topLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 25));
         topLabel.setFill(Color.DARKRED);
-        this.add(topLabel, 1, 0,1,1);
+        this.add(topLabel, 1, 0, 1, 1);
         topLabel.setTextAlignment(TextAlignment.CENTER);
 
         Button Soeg = new Button("Søg");
@@ -62,10 +58,9 @@ public class KundeSkaerm extends GridPane {
 
         navnColumn.setStyle("-fx-alignment: CENTER;");
         tlfColumn.setStyle("-fx-alignment: CENTER;");
-        byColumn.setStyle( "-fx-alignment: CENTER;");
+        byColumn.setStyle("-fx-alignment: CENTER;");
 
         this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 620;");
-
 
 
         navnColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.30));
@@ -78,33 +73,33 @@ public class KundeSkaerm extends GridPane {
 
         ObservableList<Kunde> kundeListe = FXCollections.observableArrayList(ListMediator.getKundeListe());
         kundeTable.getItems().addAll(kundeListe);
-        this.add(kundeTable, 0, 2,3,1);
+        this.add(kundeTable, 0, 2, 3, 1);
 
 
-        FilteredList<Kunde> flKunde = new FilteredList(kundeListe, p -> true); // Flytter data til en filtered list
-        kundeTable.setItems(flKunde); //Sætter tableviewets items ved brug af vores filtered list
+        FilteredList<Kunde> filteredList = new FilteredList(kundeListe, p -> true);
+        kundeTable.setItems(filteredList);
 
         ChoiceBox<String> choiceBox = new ChoiceBox();
         choiceBox.getItems().addAll("Navn", "Telefon nr", "By");
-        choiceBox.setValue("Navn"); //det den starter med
+        choiceBox.setValue("Navn");
 
         TextField soegefelt = new TextField();
         soegefelt.setPromptText("Søgefelt");
         this.add(soegefelt, 0, 1);
         soegefelt.setAlignment(Pos.TOP_LEFT);
         soegefelt.textProperty().addListener((obs, oldValue, newValue) -> {
-            switch(choiceBox.getValue()){
+            switch (choiceBox.getValue()) {
 
                 case "Navn":
-                    flKunde.setPredicate(p -> p.getNavn().toLowerCase().contains(newValue.toLowerCase().trim()));
+                    filteredList.setPredicate(p -> p.getNavn().toLowerCase().contains(newValue.toLowerCase().trim()));
                     break;
 
                 case "Telefon nr":
-                    flKunde.setPredicate(p -> p.getTlf().toLowerCase().contains(newValue.toLowerCase().trim()));
+                    filteredList.setPredicate(p -> p.getTlf().toLowerCase().contains(newValue.toLowerCase().trim()));
                     break;
 
                 case "By":
-                    flKunde.setPredicate(p -> p.getBy().toLowerCase().contains(newValue.toLowerCase().trim()));
+                    filteredList.setPredicate(p -> p.getBy().toLowerCase().contains(newValue.toLowerCase().trim()));
                     break;
             }
         });
@@ -112,19 +107,19 @@ public class KundeSkaerm extends GridPane {
         choiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)
                 -> {//resetter vores table og textfield når noget nyt er selected
             if (newVal != null) {
-                soegefelt.setText(""); //soegefelt.setText("");
+                soegefelt.setText("");
             }
         });
-        this.add(choiceBox,1,1);
+        this.add(choiceBox, 1, 1);
 
         this.setAlignment(Pos.CENTER_LEFT);
 
         kundeTable.setOnMouseClicked(event -> {
-            if (kundeTable.getSelectionModel().getSelectedItem() != null) {
-                Kunde selectedKunde = kundeTable.getSelectionModel().getSelectedItem();
-                StartSkaermController.i().pushNode(new KundeInfoSkaerm(selectedKunde));
-            }
-        }
+                    if (kundeTable.getSelectionModel().getSelectedItem() != null) {
+                        Kunde selectedKunde = kundeTable.getSelectionModel().getSelectedItem();
+                        StartSkaermController.i().pushNode(new KundeInfoSkaerm(selectedKunde));
+                    }
+                }
         );
     }
 

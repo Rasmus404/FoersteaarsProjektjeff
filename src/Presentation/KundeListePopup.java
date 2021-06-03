@@ -6,33 +6,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.Writer;
-import java.sql.SQLException;
-
 public class KundeListePopup {
 
-    OpretKoebSkaerm opretKoebSkaerm;
+    OpretKundeSkaerm opretKundeSkaerm;
 
-    public KundeListePopup(OpretKoebSkaerm opretKoebSkaerm) {
-        this.opretKoebSkaerm = opretKoebSkaerm;
+    public KundeListePopup(OpretKundeSkaerm opretKundeSkaerm) {
+        this.opretKundeSkaerm = opretKundeSkaerm;
         Stage popupwindow = new Stage();
 
-        //blocks touches outside the popupWindow
         popupwindow.initModality(Modality.APPLICATION_MODAL);
         popupwindow.setTitle("Kundeliste");
 
@@ -54,7 +43,7 @@ public class KundeListePopup {
 
         navnColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.20));
         tlfColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.20));
-        byColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.20)); //set to 20 from 30
+        byColumn.prefWidthProperty().bind(kundeTable.widthProperty().multiply(0.20));
         kundeTable.getColumns().add(navnColumn);
         kundeTable.getColumns().add(tlfColumn);
         kundeTable.getColumns().add(byColumn);
@@ -66,7 +55,7 @@ public class KundeListePopup {
         kundeTable.setOnMouseClicked(e -> {
                     if (kundeTable.getSelectionModel().getSelectedItem() != null) {
                         Kunde selectedKunde = kundeTable.getSelectionModel().getSelectedItem();
-                        opretKoebSkaerm.setFields(selectedKunde);
+                        opretKundeSkaerm.setFields(selectedKunde);
                         popupwindow.close();
                     }
                 }
