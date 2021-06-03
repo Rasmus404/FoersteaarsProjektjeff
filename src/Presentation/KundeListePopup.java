@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+// Victor og Yusuf
 public class KundeListePopup {
 
     OpretKundeSkaerm opretKundeSkaerm;
@@ -60,10 +61,6 @@ public class KundeListePopup {
                     }
                 }
         );
-
-        Button exportBtn = new Button("Export");
-
-
 
         Image icon = new Image("file:logo.png");
         popupwindow.getIcons().add(icon);

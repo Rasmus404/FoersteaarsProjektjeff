@@ -23,12 +23,7 @@ public class Datalayer {
 
     static boolean loadJdbcDriver() {
         try {
-            //System.out.println("Loading JDBC driver...");
-
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-
-            //System.out.println("JDBC driver loaded");
-
             return true;
         } catch (ClassNotFoundException e) {
             System.out.println("Could not load JDBC driver!");
@@ -46,12 +41,7 @@ public class Datalayer {
         connection = null;
 
         try {
-            //System.out.println("Connecting to database...");
-
             connection = DriverManager.getConnection(connectionString);
-
-            //System.out.println("Connected to database");
-
             return true;
         } catch (SQLException e) {
             System.out.println("Could not connect to database!");
@@ -72,7 +62,6 @@ public class Datalayer {
                     + "','" + kunde.getBy()
                     + "','" + kunde.getLeveringsadresse() + "')";
 
-            System.out.println(sql);
             Statement statement = connection.createStatement();
             int affectedRows = statement.executeUpdate(sql);
             ResultSet resultSet =
@@ -101,7 +90,6 @@ public class Datalayer {
                     + "','" + faktura.getKoebsdatoToLong()
                     + "','" + faktura.getKunde_id() + "')";
 
-            System.out.println(sql);
             Statement statement = connection.createStatement();
             int affectedRows = statement.executeUpdate(sql);
             ResultSet resultSet =
@@ -124,7 +112,6 @@ public class Datalayer {
                     "('" + bil.getBilNavn()
                     + "','" + bil.getPris() + "')";
 
-            System.out.println(sql);
             Statement statement = connection.createStatement();
             int affectedRows = statement.executeUpdate(sql);
             return true;
@@ -140,7 +127,6 @@ public class Datalayer {
     public ArrayList<Kunde> getKundeListByCondition(String condition) {
         ArrayList<Kunde> kundetable = new ArrayList<>(20);
 
-        System.out.println("condition: " + condition);
         try {
             String sql = "SELECT * FROM kunde WHERE " + condition;
 
@@ -167,7 +153,6 @@ public class Datalayer {
 
     public ArrayList<Faktura> getFakturaListByCondition(String condition) {
         ArrayList<Faktura> fakturas = new ArrayList<>();
-        System.out.println("condition: " + condition);
         try {
             String sql = "SELECT * FROM Faktura WHERE " + condition;
 
@@ -200,7 +185,6 @@ public class Datalayer {
     public ArrayList<Bil> getBilListByCondition(String condition) {
         ArrayList<Bil> biler = new ArrayList<>(20);
 
-        System.out.println("condition: " + condition);
         try {
             String sql = "SELECT * FROM Bil WHERE " + condition;
 

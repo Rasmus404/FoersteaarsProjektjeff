@@ -34,7 +34,6 @@ public class OpretKundeSkaerm extends GridPane {
     Kunde kunde;
 
 
-
     public OpretKundeSkaerm() {
 
 
@@ -61,7 +60,7 @@ public class OpretKundeSkaerm extends GridPane {
         firstname.setAlignment(Pos.BASELINE_CENTER);
         firstname.setFocusTraversable(false);
         firstname.setPromptText("Navn");
-//        firstname.setStyle("-fx-background-color: darkred;");
+
         firstname.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
                 "-fx-prompt-text-fill: white; -fx-font-size: 13px; -fx-background-color: darkred");
 
@@ -84,10 +83,10 @@ public class OpretKundeSkaerm extends GridPane {
         cpr.setOpacity(1);
 
 
-        cpr.focusedProperty().addListener(new ChangeListener<Boolean>() {
+        cpr.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (oldValue && cpr.getText().matches("^\\d{10}$")){
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (cpr.getText().matches("^\\d{10}$")) {
                     new CprService(cpr, cprLabel).start();
                 }
 
@@ -168,6 +167,7 @@ public class OpretKundeSkaerm extends GridPane {
         nextButton.setFont(NBSize);
         this.add(nextButton, 2, 7);
         nextButton.setAlignment(Pos.BASELINE_RIGHT);
+        //Victor
         nextButton.setOnAction(e -> {
                     if (kundeIsValid()) {
                         kundeInit();
@@ -176,7 +176,7 @@ public class OpretKundeSkaerm extends GridPane {
                         kunde.setTlf(telefon.getText());
                         kunde.setAdresse(adresse.getText());
                         kunde.setBy(by.getText());
-                        //kunde.setCredit(cprLabel.getText())
+                        kunde.setKreditVaerdighed(cprLabel.getText());
 
                         if (check.isSelected() && leveringsadresse.getText().isEmpty()) {
                             kunde.setLeveringOenskes();
@@ -203,6 +203,7 @@ public class OpretKundeSkaerm extends GridPane {
         errorLabel.setText("Værdier er ikke indtastet korrekt");
     }
 
+    //Yusuf
     public void setFields(Kunde kunde) {
         firstname.setText(kunde.getNavn());
         cpr.setText(kunde.getCpr());
@@ -213,9 +214,10 @@ public class OpretKundeSkaerm extends GridPane {
         new CprService(cpr, cprLabel).start();
     }
 
+    //Victor
     public boolean kundeIsValid() {
         if (firstname.getText().isEmpty() ||
-                !cpr.getText().matches("^\\d{10}$") ||  //tjekker fra første karakter om der er 10 tal frem til den sidste
+                !cpr.getText().matches("^\\d{10}$") ||
                 telefon.getText().isEmpty() ||
                 adresse.getText().isEmpty() ||
                 by.getText().isEmpty()
@@ -235,6 +237,7 @@ public class OpretKundeSkaerm extends GridPane {
         }
     }
 
+    //Victor
     private class CprService extends Service<String> {
         TextField cprField;
 

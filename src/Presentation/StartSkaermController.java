@@ -7,6 +7,7 @@ import java.util.Stack;
 import javafx.scene.image.Image;
 import javafx.stage.*;
 
+//Victor
 public class StartSkaermController {
     private Stack<Node> stack = new Stack<>();
     StartSkaerm startSkaerm;

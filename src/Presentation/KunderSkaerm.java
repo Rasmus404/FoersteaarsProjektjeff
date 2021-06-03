@@ -17,7 +17,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-///*
+// Rasmus og Yusuf
 
 public class KunderSkaerm extends GridPane {
 
@@ -30,7 +30,7 @@ public class KunderSkaerm extends GridPane {
         this.getColumnConstraints().add(new ColumnConstraints(160));
         this.getColumnConstraints().add(new ColumnConstraints(200));
 
-        Text topLabel = new Text("Kunde");
+        Text topLabel = new Text("Kunder");
         topLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 25));
         topLabel.setFill(Color.DARKRED);
         this.add(topLabel, 1, 0, 1, 1);
@@ -105,7 +105,7 @@ public class KunderSkaerm extends GridPane {
         });
 
         choiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)
-                -> {//resetter vores table og textfield når noget nyt er selected
+                -> {
             if (newVal != null) {
                 soegefelt.setText("");
             }

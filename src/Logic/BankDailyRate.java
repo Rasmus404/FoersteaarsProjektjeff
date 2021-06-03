@@ -2,7 +2,8 @@ package Logic;
 
 import Datalayer.InterestRate;
 
-public class bankDailyRate {
+//Victor
+public class BankDailyRate {
 
     public double getDailyRate(){
         return InterestRate.i().todaysRate();

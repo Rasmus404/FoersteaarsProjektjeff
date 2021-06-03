@@ -3,20 +3,21 @@ import Datalayer.Datalayer;
 import java.util.Date;
 import java.sql.SQLException;
 
-//Victor
+//Victor og Yusuf
 public class Faktura {
 
     int faktura_id;
     int kunde_id;
     String model;
-    double bilPris; // fra database
-    double udbetalingsprocent; //indsat værdi
-    double loebetid; // indsat værdi
+    double bilPris;
+    double udbetalingsprocent;
+    double loebetid;
     double rki;
     double dailyBankRate;
     double rentesats;
     boolean fakturaGodkendt;
-    Date koebsdato;
+    public Date koebsdato;
+    String dateFormated;
     Kunde kunde;
 
 
@@ -30,17 +31,10 @@ public class Faktura {
     }
 
 
-    public void check(Kunde kunde) {
-        rkiCheck(kunde.getKreditVaerdighed());
-        loebeTidCheck();
-        udbetalingsProcentCheck();
-    }
-
-
     //Check for Rentesats components
-    private void rkiCheck(String kreditVaerdighed) {
+    public void rkiCheck(Kunde kunde) {
 
-        switch (kreditVaerdighed) {
+        switch (kunde.getKreditVaerdighed()) {
             case "A":
                 this.rki = 0.01;
                 break;
@@ -101,10 +95,6 @@ public class Faktura {
         DL.addFaktura(this);
     }
 
-    public void deleteFromDatabase() throws SQLException {
-        Datalayer DL = new Datalayer("FerrariDB");
-        DL.deleteFaktura(this);
-    }
     public void updateFakturaGodkendelseInDatabase() throws SQLException {
         Datalayer DL = new Datalayer("FerrariDB");
         DL.updateFakturaGodkendelse(this);
@@ -113,12 +103,11 @@ public class Faktura {
     //DateFormating
     public String getDateFormated() {
         StringBuilder sb = new StringBuilder(koebsdato.toString());
-        return sb.substring(8, 9) + sb.substring(3, 7) + sb.substring(24); // dow (mon dd) hh:mm:ss zzz (yyyy)
+        return sb.substring(8, 9) + sb.substring(3, 7) + sb.substring(24);
 
     }
 
 
-    //Getters and Setters
     public double getDailyBankRate() {
         return dailyBankRate;
     }
@@ -188,19 +177,15 @@ public class Faktura {
     }
 
     public void setFakturaGodkendtByPris(double pris) {
-        if(LoginChecker.isAdmin){
-            this.fakturaGodkendt = true; System.out.println("Du er logget ind som admin, fakturaen er godkendt");
-        } else if(pris>1500000) {
-            this.fakturaGodkendt = false; System.out.println("Du er logget ind som sælger, bilen skal godkendes af din chef" );
+        if (LoginChecker.isAdmin) {
+            this.fakturaGodkendt = true;
+        } else if (pris > 1500000) {
+            this.fakturaGodkendt = false;
         }
     }
 
     public boolean isFakturaGodkendt() {
         return fakturaGodkendt;
-    }
-
-    public Date getKoebsdato() {
-        return koebsdato;
     }
 
     public long getKoebsdatoToLong() {
@@ -209,6 +194,10 @@ public class Faktura {
 
     public void setKoebsdato(Date koebsdato) {
         this.koebsdato = koebsdato;
+    }
+
+    public void setDateFormated(String dateFormated) {
+        this.dateFormated = dateFormated;
     }
 
 

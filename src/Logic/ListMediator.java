@@ -4,9 +4,9 @@ import Datalayer.Datalayer;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+// Victor og Oliver
 public class ListMediator {
     public static ArrayList<Kunde> kundeListe;
-    public static ArrayList<Faktura> fakturaListe;
     public static ArrayList<Bil> bilListe;
     public static ArrayList<IgangvaerendeKoeb> igangvaerendekoebListe;
 
@@ -28,13 +28,6 @@ public class ListMediator {
         return kundeListe;
     }
 
-    public static ArrayList<Faktura> getFakturaListe() {
-        try {
-            updateFakturaListe();
-        } catch (SQLException e) {
-        }
-        return fakturaListe;
-    }
 
     public static ArrayList<Faktura> getFakturaListeByKunde(Kunde kunde) {
         ArrayList<Faktura> fakturas = new ArrayList<>();
@@ -54,9 +47,6 @@ public class ListMediator {
         return fakturas;
     }
 
-    public static void setLaanListe(ArrayList<Faktura> laanListe) {
-        ListMediator.fakturaListe = laanListe;
-    }
 
     public static ArrayList<Bil> getBilListe() {
         try {
@@ -66,13 +56,13 @@ public class ListMediator {
         return bilListe;
     }
 
-    public static void setBilListe(ArrayList<Bil> bilListe) {
-        ListMediator.bilListe = bilListe;
-    }
-
     public static ArrayList<Faktura> getFakturasByCondition(String condition) throws SQLException {
         Datalayer DL = new Datalayer("FerrariDB");
-        return DL.getFakturaListByCondition(condition);
+        ArrayList<Faktura> tempFakturas = DL.getFakturaListByCondition(condition);
+        for (Faktura fakturaVar : tempFakturas) {
+            fakturaVar.setDateFormated(fakturaVar.getDateFormated());
+        }
+        return tempFakturas;
     }
 
     public static void updateKundeListe() throws SQLException {
@@ -80,10 +70,6 @@ public class ListMediator {
         ListMediator.kundeListe = DL.getKundeListByCondition("0=0");
     }
 
-    public static void updateFakturaListe() throws SQLException {
-        Datalayer DL = new Datalayer("FerrariDB");
-        ListMediator.fakturaListe = DL.getFakturaListByCondition("0=0");
-    }
 
     public static void updateBilListe() throws SQLException {
         Datalayer DL = new Datalayer("FerrariDB");

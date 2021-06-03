@@ -1,5 +1,7 @@
 package Logic;
 
+
+//Victor og Rasmus
 public class IgangvaerendeKoeb {
 
     int faktura_id;

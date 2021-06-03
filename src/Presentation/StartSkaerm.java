@@ -14,20 +14,15 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+//Rasmus og Yusuf
+public class StartSkaerm extends BorderPane {
 
-public class StartSkaerm extends BorderPane{
-
-    private Stack<Node> stack = new Stack<>();
     private VBox leftBorder;
     Button opret, kunde, igangværende, bilListe, tilbage;
     Stage stage;
 
 
-
-
-
-
-     StartSkaerm(Stage stage) {
+    StartSkaerm(Stage stage) {
         this.stage = stage;
         StartSkaermController.i().setStartSkaerm(this);
 
@@ -96,11 +91,10 @@ public class StartSkaerm extends BorderPane{
         stage.getIcons().add(icon);
         leftBorder.getChildren().addAll(logo, opret, kunde, igangværende, bilListe, usernameLabel, tilbage);
         logo.setPickOnBounds(true);
-        logo.setOnMouseClicked(e -> StartSkaermController.i().setFocus(logo2));
+        logo.setOnMouseClicked(e -> StartSkaermController.i().clearAndStartNew(logo2));
+
 
         this.setLeft(leftBorder);
-
-//        Image img2 = new Image("file:laferrari.jpg", 750, 750, false, false);
 
 
     }

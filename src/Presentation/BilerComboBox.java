@@ -9,10 +9,12 @@ import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
-public class LaaneaftaleComboBox extends ComboBox {
+//Victor
+public class BilerComboBox extends ComboBox {
 
     ObservableList<Bil> biler;
-    public LaaneaftaleComboBox(ArrayList<Bil> bilerObj) {
+
+    public BilerComboBox(ArrayList<Bil> bilerObj) {
         this.biler = FXCollections.observableArrayList(bilerObj);
         this.getItems().addAll(this.biler);
     }

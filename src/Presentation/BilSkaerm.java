@@ -19,13 +19,12 @@ import javafx.scene.text.TextAlignment;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-public class BilListeSkaerm extends GridPane {
+//Oliver og Yusuf
+public class BilSkaerm extends GridPane {
     Bil bil;
     TextField modelText;
     TextField prisText;
     Label errorLabel;
-    public ObservableList<Bil> bilListe = FXCollections.observableArrayList(ListMediator.getBilListe());
     public int selectedIndex = -1;
 
     public BilSkaerm() {
@@ -33,12 +32,12 @@ public class BilListeSkaerm extends GridPane {
         this.setHgap(10);
         this.setVgap(3);
         this.setPadding(new Insets(3, 20, 10, 20));
+        this.getColumnConstraints().add(new ColumnConstraints(50));
+        this.getColumnConstraints().add(new ColumnConstraints(110));
         this.getColumnConstraints().add(new ColumnConstraints(40));
-        this.getColumnConstraints().add(new ColumnConstraints(100));
-        this.getColumnConstraints().add(new ColumnConstraints(30));
-        this.getColumnConstraints().add(new ColumnConstraints(100));
-        this.getColumnConstraints().add(new ColumnConstraints(60));
-        this.getColumnConstraints().add(new ColumnConstraints(60));
+        this.getColumnConstraints().add(new ColumnConstraints(110));
+        this.getColumnConstraints().add(new ColumnConstraints(70));
+
 
         Text topLabel = new Text("Bil liste");
         topLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 25));
@@ -65,15 +64,12 @@ public class BilListeSkaerm extends GridPane {
         bilTable.setStyle("-fx-selection-bar: red; -fx-selection-bar-non-focused: salmon; -fx-background-color: darkred; " +
                 "-fx-text-fill: red;");
 
-
-        //----
         bilTable.setOnMouseClicked(event -> {
             Bil selectedBil = bilTable.getSelectionModel().getSelectedItem();
             selectedIndex = bilTable.getSelectionModel().getSelectedIndex();
             modelText.setText(selectedBil.getBilNavn());
             prisText.setText("" + selectedBil.getPris());
         });
-        //---
 
 
         if (ListMediator.getBilListe() != null) {
@@ -136,7 +132,7 @@ public class BilListeSkaerm extends GridPane {
         Button delete = new Button("Slet bil");
         Font deleteSize = new Font(10);
         delete.setFont(deleteSize);
-        this.add(delete, 6, 2);
+        this.add(delete, 5, 2);
         delete.setOnAction(e -> {
             try {
                 bil.deleteFromDatabase();

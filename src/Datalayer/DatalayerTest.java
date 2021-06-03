@@ -10,11 +10,11 @@ import java.sql.SQLException;
 import java.util.Date;
 import static org.junit.jupiter.api.Assertions.*;
 
+//Victor og Oliver
 class DatalayerTest {
 
     private Datalayer dl;
     Kunde kunde;
-    Faktura faktura;
     Bil bil;
 
     @BeforeEach
@@ -27,13 +27,6 @@ class DatalayerTest {
         kunde.setAdresse("TestAddresse");
         kunde.setTlf("12341234");
         kunde.setCpr("1234123412");
-
-        faktura = new Faktura();
-        faktura.setKoebsdato(new Date(1621936097));
-        faktura.setKunde_id(kunde.getKunde_id());
-        faktura.setLoebetid(40);
-        faktura.setUdbetalingsprocent(50);
-        faktura.calcRentesats();
 
         bil = new Bil("Test1", (double) 1);
 
@@ -51,13 +44,6 @@ class DatalayerTest {
     void addKoeb() {
 
         assertTrue( dl.addKoeb(kunde));
-    }
-
-    @Test
-    void addFaktura() {
-
-
-        assertTrue(dl.addFaktura(faktura));
     }
 
     @Test

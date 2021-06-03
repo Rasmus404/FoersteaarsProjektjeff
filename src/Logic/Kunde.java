@@ -4,20 +4,19 @@ import Datalayer.Datalayer;
 import Datalayer.CreditRator;
 import java.sql.SQLException;
 
-//Victor
+//Victor og Yusuf
 public class Kunde {
 
     int kunde_id;
-    //int laan_id;
     String navn = "";
     String cpr = "";
     String tlf = "";
     String adresse = "";
-    //String model = "";
     String by = "";
     String leveringsadresse = "";
     boolean leveringOenskes = false;
     String kreditVaerdighed;
+
 
 
     public int getKunde_id() {
@@ -69,9 +68,6 @@ public class Kunde {
     }
 
     public String getLeveringsadresse() {
-       /* if (leveringsadresse.isEmpty() && leveringOenskes)
-            return adresse;
-        else*/
         return leveringsadresse;
     }
 
@@ -99,6 +95,7 @@ public class Kunde {
         Datalayer DL = new Datalayer("FerrariDB");
         DL.addKoeb(this);
     }
+
     public void deleteFromDatabase() throws SQLException {
         Datalayer DL = new Datalayer("FerrariDB");
         DL.deleteKunde(this);

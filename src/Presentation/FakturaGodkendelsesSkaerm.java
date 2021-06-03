@@ -36,6 +36,7 @@ public class FakturaGodkendelsesSkaerm extends GridPane {
 
         this.kunde = kunde;
         this.faktura = faktura;
+        DecimalFormat df = new DecimalFormat("#,###.##", new DecimalFormatSymbols(Locale.GERMAN));
 
 
         this.setAlignment(Pos.TOP_LEFT);
@@ -146,8 +147,8 @@ public class FakturaGodkendelsesSkaerm extends GridPane {
         maanedligudbetaling.setTextFill(Color.web("darkred"));
         maanedligudbetaling.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
-        TextField mdrUdbetalingField = new TextField("" + faktura.getMdrUdbetaling());
-        this.add(mdrUdbetalingField,1,6);
+        TextField mdrUdbetalingField = new TextField(df.format(faktura.getMdrUdbetaling()));
+        this.add(mdrUdbetalingField, 1, 6);
         mdrUdbetalingField.setAlignment(Pos.BASELINE_CENTER);
         mdrUdbetalingField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         mdrUdbetalingField.setDisable(true);
@@ -156,14 +157,14 @@ public class FakturaGodkendelsesSkaerm extends GridPane {
                 "-fx-prompt-text-fill: white; -fx-background-color: darkred");
 
         // totalpris
-        Label totalpris = new Label("Totalpris");
+        Label totalpris = new Label("Lånebeløb");
         this.add(totalpris, 0, 7);
         totalpris.setAlignment(Pos.BASELINE_CENTER);
         totalpris.setTextFill(Color.web("darkred"));
         totalpris.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
-        TextField prisField = new TextField("" + faktura.getTotalPris());
-        this.add(prisField,1,7);
+        TextField prisField = new TextField(df.format(faktura.getLaaneBeloeb()));
+        this.add(prisField, 1, 7);
         prisField.setAlignment(Pos.BASELINE_CENTER);
         prisField.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
         prisField.setDisable(true);
@@ -182,55 +183,50 @@ public class FakturaGodkendelsesSkaerm extends GridPane {
         datoLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
 
         this.dp = new DatePicker();
-        dp.setOnAction((new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Den valgte dato er: " + dp.getValue());
-            }
-        }));
         dp.setValue(LocalDate.now());
         dp.getEditor().clear();
         dp.setValue(null);
         this.add(dp, 1, 8);
 
+
+//Victor
         Button confirmBtn = new Button("Godkend");
         Font NBSize = new Font(15);
         confirmBtn.setFont(NBSize);
         this.add(confirmBtn, 2, 8);
         confirmBtn.setAlignment(Pos.BASELINE_RIGHT);
-        confirmBtn.setOnAction(e-> {
-            faktura.setKoebsdato(Date.from(dp.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-            Kunde kundeVar = kundeExists(kunde);
-            if(kundeVar == null) {
-                try {
-                    kunde.addToDatabase()
-                    ;
-                } catch (SQLException e2) {
+        confirmBtn.setOnAction(e -> {
+                    faktura.setKoebsdato(Date.from(dp.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+                    Kunde kundeVar = kundeExists(kunde);
+                    if (kundeVar == null) {
+                        try {
+                            kunde.addToDatabase()
+                            ;
+                        } catch (SQLException e2) {
+                        }
+
+                        faktura.setFakturaGodkendtByPris(faktura.getLaaneBeloeb());
+                        faktura.setKunde_id(kunde.getKunde_id());
+                        try {
+                            faktura.addToDatabase();
+                        } catch (SQLException e1) {
+                        }
+                    } else {
+                        faktura.setFakturaGodkendtByPris(faktura.getLaaneBeloeb());
+                        faktura.setKunde_id(kundeVar.getKunde_id());
+                        try {
+                            faktura.addToDatabase();
+                        } catch (SQLException e1) {
+                        }
+                    }
+                    StartSkaermController.i().clearAndStartNew(new KunderSkaerm());
                 }
-                System.out.println("faktura godkendt status = " + faktura.isFakturaGodkendt());
-                faktura.setFakturaGodkendtByPris(faktura.getLaaneBeloeb());
-                System.out.println("faktura godkendt status = " + faktura.isFakturaGodkendt());
-                faktura.setKunde_id(kunde.getKunde_id());
-                try {
-                    faktura.addToDatabase();
-                } catch (SQLException e1) {
-                }
-            } else {
-                System.out.println("faktura godkendt status = " + faktura.isFakturaGodkendt());
-                faktura.setFakturaGodkendtByPris(faktura.getLaaneBeloeb());
-                System.out.println("faktura godkendt status = " + faktura.isFakturaGodkendt());
-                faktura.setKunde_id(kundeVar.getKunde_id());
-                try {
-                    faktura.addToDatabase();
-                } catch (SQLException e1) {
-                }
-            }
-                StartSkaermController.i().clearAndStartNew(new KundeSkaerm());
-            }
         );
         confirmBtn.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
                 "-fx-font-size: 16px; -fx-background-color: darkred");
     }
+
+    //Victor
     public Kunde kundeExists(Kunde kunde) {
 
         ArrayList<Kunde> kundeList = ListMediator.getKundeListe();

@@ -21,6 +21,7 @@ import Logic.Faktura;
 
 import java.sql.SQLException;
 
+//Oliver og Yusuf
 public class IgangværendeSkaerm extends GridPane {
 
     Faktura selectedFaktura;
@@ -48,7 +49,7 @@ public class IgangværendeSkaerm extends GridPane {
         Soeg.setAlignment(Pos.TOP_RIGHT);
 
 
-        TableView<IgangvaerendeKoeb> kundeTable = new TableView<>(); // Kundens navn, Bil model, Dato, Status
+        TableView<IgangvaerendeKoeb> igangvaerendeTable = new TableView<>();
         TableColumn<IgangvaerendeKoeb, String> navnColumn = new TableColumn("Navn");
         TableColumn<IgangvaerendeKoeb, String> bilColumn = new TableColumn("Bil model");
         TableColumn<IgangvaerendeKoeb, String> datoColumn = new TableColumn("Start dato");
@@ -81,9 +82,6 @@ public class IgangværendeSkaerm extends GridPane {
         igangvaerendeTable.getItems().addAll(obsListe);
         this.add(igangvaerendeTable, 0, 2, 3, 1);
 
-//
-
-
         this.setStyle("-fx-background-image: url(\"ferrari.jpg\"); -fx-background-size: 900 620;");
 
         if (LoginChecker.isAdmin) {
@@ -101,13 +99,14 @@ public class IgangværendeSkaerm extends GridPane {
                 }
             });
         }
-//---------------------------------------------------
-            FilteredList<IgangvaerendeKoeb> flKunde = new FilteredList(obsListe, p -> true); // Flytter data til en filtered list
-            kundeTable.setItems(flKunde); //Sætter tableviewets items ved brug af vores filtered list
 
-            ChoiceBox<String> choiceBox = new ChoiceBox();  //"Navn", "Bil model", "Start dato", "Status";
-            choiceBox.getItems().addAll("Navn", "Bil model", "Start dato", "Status");
-            choiceBox.setValue("Navn"); //det den starter med
+
+        FilteredList<IgangvaerendeKoeb> filteredList = new FilteredList(obsListe, p -> true);
+        igangvaerendeTable.setItems(filteredList);
+
+        ChoiceBox<String> choiceBox = new ChoiceBox();
+        choiceBox.getItems().addAll("Navn", "Bil model", "Start dato", "Status");
+        choiceBox.setValue("Navn");
 
         TextField soegefelt = new TextField();
         soegefelt.setPromptText("Søgefelt");
@@ -134,22 +133,15 @@ public class IgangværendeSkaerm extends GridPane {
             }
         });
 
-            choiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)
-                    -> {//resetter vores table og textfield når noget nyt er selected
-                if (newVal != null) {
-                    soegefelt.setText(""); //soegefelt.setText("");
-                }
-            });
-            this.add(choiceBox, 1, 1);
-
-//---------------------------------------------------
+        choiceBox.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal)
+                -> {
+            if (newVal != null) {
+                soegefelt.setText("");
+            }
+        });
+        this.add(choiceBox, 1, 1);
 
 
-            Button nextButton = new Button("Videre");
-            Font NBSize = new Font(15);
-            nextButton.setFont(NBSize);
-            this.add(nextButton, 1, 2);
-            nextButton.setOnAction(e -> StartSkaermController.i().pushNode(new KundeInfoSkaerm(null)));
-        }
+    }
 }
 

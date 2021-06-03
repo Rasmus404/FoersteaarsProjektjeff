@@ -26,21 +26,21 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-
-public class KvitteringSkaerm extends GridPane {
+//Oliver
+public class FakturaSkaerm extends GridPane {
 
 
     Kunde kunde;
     Faktura faktura;
     DecimalFormat df;
-    KvitteringSkaerm kvitteringSkaerm;
+
 
     public FakturaSkaerm(Kunde kunde, Faktura faktura) {
 
-        this.faktura = new Faktura(kunde);
+        this.faktura = faktura;
         this.kunde = kunde;
         this.df = new DecimalFormat("#,###.##", new DecimalFormatSymbols(Locale.GERMAN));
-        this.kvitteringSkaerm = kvitteringSkaerm;
+
 
         this.setAlignment(Pos.TOP_LEFT);
         this.setHgap(20);
@@ -48,8 +48,8 @@ public class KvitteringSkaerm extends GridPane {
         this.setPadding(new Insets(5, 10, 5, 35));
         this.getRowConstraints().add(new RowConstraints(75));
         this.getColumnConstraints().add(new ColumnConstraints(150));
-        this.getColumnConstraints().add(new ColumnConstraints(150));
-        this.getColumnConstraints().add(new ColumnConstraints(260));
+        this.getColumnConstraints().add(new ColumnConstraints(200));
+        this.getColumnConstraints().add(new ColumnConstraints(50));
 
 
         Text topLabel = new Text("Kvittering");
@@ -229,17 +229,17 @@ public class KvitteringSkaerm extends GridPane {
 
 
         Button exportBtn = new Button("Export");
-        this.add(exportBtn,2,10);
-        exportBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                try {
-                    exportCsv();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
+        this.add(exportBtn, 2, 10);
+        exportBtn.setOnAction(e -> {
+            try {
+                exportCsv();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         });
+        Button tilbagebetalingBtn = new Button("Se tilbagebetalingsplan");
+        this.add(tilbagebetalingBtn, 3, 10);
+        tilbagebetalingBtn.setOnAction(e -> new TilbagebetalingsPopup(this, this.faktura));
     }
 
     public void exportCsv() throws Exception {

@@ -21,6 +21,8 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
+
+//Victor
 public class LaaneaftaleSkaerm extends GridPane {
 
     Kunde kunde;
@@ -35,11 +37,10 @@ public class LaaneaftaleSkaerm extends GridPane {
     DecimalFormat df;
 
 
-    public LaaneaftaleSkaerm (Kunde kunde) {
-        LaaneAftaleThread laaneAftaleThread = new LaaneAftaleThread(this);
+    public LaaneaftaleSkaerm(Kunde kunde) {
         this.kunde = kunde;
         this.faktura = new Faktura(kunde);
-        faktura.check(kunde);
+        faktura.rkiCheck(kunde);
         this.df = new DecimalFormat("#,###.##", new DecimalFormatSymbols(Locale.GERMAN));
 
         this.setAlignment(Pos.TOP_LEFT);
@@ -62,7 +63,6 @@ public class LaaneaftaleSkaerm extends GridPane {
         this.add(model, 0, 1);
         model.setAlignment(Pos.BASELINE_CENTER);
         model.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 13));
-        //model
         model.setStyle("-fx-text-fill: darkred;");
 
 
@@ -70,7 +70,7 @@ public class LaaneaftaleSkaerm extends GridPane {
         modelValg.setMinWidth(150);
         modelValg.setEditable(false);
 
-        //model.setMaxWidth();
+
         this.add(modelValg, 1, 1);
         modelValg.setFocusTraversable(false);
         modelValg.setPromptText("Model");
@@ -82,9 +82,13 @@ public class LaaneaftaleSkaerm extends GridPane {
                 if (newValue != null) {
                     updateCarValue();
                 }
+                if (newValue != null && !loebetidField.getText().isEmpty() && !udbetalingsProcentField.getText().isEmpty()) {
+                    updateCarValue();
+                    new valueService().start();
+                }
             }
         });
-        // -----changeListener() -- laaneaftaleSkaerm.updateCarValue(); -----
+
 
         //udbetalingsprocent
         Label bilPris = new Label("Bil pris:");
@@ -121,16 +125,15 @@ public class LaaneaftaleSkaerm extends GridPane {
                 " -fx-background-color: #da614e");
 
 
-        udbetalingsProcentField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+        udbetalingsProcentField.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (oldValue && !loebetidField.getText().isEmpty() && !carCheck()){
-                   new valueService().start();
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!udbetalingsProcentField.getText().equals("\\D") && !loebetidField.getText().isEmpty() && !loebetidField.getText().equals("\\D") && !carCheck()) {
+                    new valueService().start();
                 }
-
             }
         });
-        // ----changeListener() -- notify(fakturaValueListener) ----
+
 
         //løbetid
         Label loebetid = new Label("Løbetid:");
@@ -149,16 +152,15 @@ public class LaaneaftaleSkaerm extends GridPane {
                 " -fx-background-color: #da614e");
 
 
-        loebetidField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+        loebetidField.textProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (oldValue && !udbetalingsProcentField.getText().isEmpty() && !carCheck()){
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!loebetidField.getText().equals("\\D") && !udbetalingsProcentField.getText().isEmpty() && !udbetalingsProcentField.getText().equals("\\D") && !carCheck()) {
                     new valueService().start();
                 }
-
             }
         });
-        // ----changeListener() -- notify(fakturaValueListener) ----
+
 
         //rentesats
         Label rentesats = new Label("Rentesats");
@@ -220,10 +222,9 @@ public class LaaneaftaleSkaerm extends GridPane {
         this.add(nextButton, 2, 7);
         nextButton.setAlignment(Pos.BASELINE_RIGHT);
         nextButton.setOnAction(e -> {
-            //laaneAftaleThread.stop();
-            StartSkaermController.i().pushNode(new FakturaGodkendelse(kunde, faktura));
+            StartSkaermController.i().pushNode(new FakturaGodkendelsesSkaerm(kunde, faktura));
         });
-        //laaneAftaleThread.start();
+
         nextButton.setStyle("-fx-text-fill: white; -fx-font-weight: bold;" +
                 "-fx-font-size: 16px; -fx-background-color: darkred;");
 
@@ -241,12 +242,9 @@ public class LaaneaftaleSkaerm extends GridPane {
         prisField.setText(df.format(faktura.getTotalPris()));
     }
 
-    public boolean fieldCheck() {
 
-        return(udbetalingsProcentField.getText().isEmpty() || loebetidField.getText().isEmpty()); // ----changeListener() -- laaneaftaleSkaerm.updateValues() ----
-    }
     public boolean carCheck() {
-        return(modelValg.getValue() == null); // -----changeListener() -- laaneaftaleSkaerm.updateCarValue(); -----
+        return (modelValg.getValue() == null);
 
     }
 
